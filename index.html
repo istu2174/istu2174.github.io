@@ -64,8 +64,8 @@ img{display:block;max-width:100%}
 .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:28px 22px;margin-top:40px;position:relative;z-index:2}
 .tile{display:block}
 .tile .frame{border:3px solid var(--line);border-radius:10px;overflow:hidden;aspect-ratio:16/10;background:#111}
-.tile img{width:100%;height:100%;object-fit:cover;object-position:top;filter:grayscale(1) contrast(1.1);transition:filter .4s,transform .6s}
-.tile:hover img{filter:none;transform:scale(1.04)}
+.tile img{width:100%;height:100%;object-fit:cover;object-position:top;transition:transform .6s}
+.tile:hover img{transform:scale(1.04)}
 .tile .cap{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-top:12px;font-size:.85rem;color:var(--muted)}
 .tile .cap b{font-weight:800;text-transform:uppercase;font-size:1.05rem;letter-spacing:.02em;color:var(--fg)}
 .tile.more .frame{display:grid;place-items:center;text-align:center;background:#0d0d0d;transition:background .3s}
@@ -78,18 +78,21 @@ img{display:block;max-width:100%}
 /* konten naik menimpa bagian bawah teks raksasa yang sudah memudar */
 .proj-row{display:grid;grid-template-columns:1fr 1fr;gap:4vw;align-items:center;position:relative;z-index:2;margin-top:clamp(40px,11vw,170px)}
 .slide.flip .proj-row .stage{order:2}
-/* mockup laptop + HP (monokrom, berwarna saat di-hover) */
+/* mockup laptop + HP */
 .stage{position:relative;display:block;padding-bottom:28px}
-.stage img{filter:grayscale(1) contrast(1.1);transition:filter .4s}
-.stage:hover img{filter:none}
 .laptop{width:88%}
 .slide.flip .laptop{margin-left:auto}
 .laptop .screen{background:#141414;border:2px solid #3a3a3a;border-radius:14px 14px 0 0;padding:10px;box-shadow:0 30px 60px -25px rgba(255,255,255,.08)}
 .laptop .screen img{width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top;border-radius:3px}
 .laptop .base{height:14px;background:linear-gradient(#cfcfcf,#7d7d7d);border-radius:0 0 14px 14px;margin:0 -6%;position:relative}
 .laptop .base::after{content:"";position:absolute;left:42%;right:42%;top:0;height:5px;background:#666;border-radius:0 0 6px 6px}
-.phone{position:absolute;right:0;bottom:0;width:24%;max-width:160px;background:#141414;border:2px solid #444;border-radius:24px;padding:6px;box-shadow:0 25px 40px -12px rgba(0,0,0,.8);transform:rotate(4deg)}
-.phone img{width:100%;aspect-ratio:9/18.5;object-fit:cover;object-position:top;border-radius:18px}
+/* bingkai HP: bezel + rangka metal, status bar (warna ikut aplikasi via --sb), dynamic island */
+.phone{position:absolute;right:0;bottom:0;width:24%;max-width:160px;padding:5px;border-radius:30px;
+  background:linear-gradient(150deg,#262626,#050505 60%);
+  box-shadow:0 0 0 1.5px #6b6b6b,0 0 0 3px #161616,inset 0 0 0 1px #000,0 30px 50px -15px rgba(0,0,0,.9);transform:rotate(4deg)}
+.phone img{display:block;width:100%;aspect-ratio:9/19;object-fit:cover;object-position:top;border-radius:25px;border-top:18px solid var(--sb,#fff);background:var(--sb,#fff)}
+.phone::before{content:"";position:absolute;z-index:2;top:9px;left:50%;width:30%;height:10px;transform:translateX(-50%);border-radius:10px;background:#000}
+.phone::after{content:"9:41";position:absolute;z-index:2;top:8px;left:15%;font:600 7px/12px Poppins,system-ui,sans-serif;color:var(--sbt,#111)}
 .slide.flip .phone{right:auto;left:0;transform:rotate(-4deg)}
 .num{font-weight:300;font-size:.95rem;color:var(--muted);letter-spacing:.2em}
 .proj-info h3{font-weight:800;text-transform:uppercase;font-size:clamp(2.2rem,5vw,4.4rem);line-height:.95;margin:6px 0 4px}
@@ -109,8 +112,8 @@ img{display:block;max-width:100%}
 .certs{display:flex;flex-wrap:wrap;justify-content:center;gap:30px 22px;margin-top:40px;position:relative;z-index:2}
 .cert{flex:0 1 calc(25% - 17px);display:block}
 .cert .frame{border:3px solid var(--line);border-radius:10px;overflow:hidden;aspect-ratio:10/7;background:#111}
-.cert img{width:100%;height:100%;object-fit:cover;object-position:top;filter:grayscale(1) contrast(1.05);transition:filter .4s,transform .6s}
-.cert:hover img{filter:none;transform:scale(1.04)}
+.cert img{width:100%;height:100%;object-fit:cover;object-position:top;transition:transform .6s}
+.cert:hover img{transform:scale(1.04)}
 .cert b{display:block;font-weight:700;font-size:.95rem;line-height:1.3;margin-top:12px;color:var(--fg)}
 .cert span{display:block;font-size:.8rem;color:var(--muted);margin-top:3px}
 .cert em{display:inline-block;font-style:normal;font-size:.72rem;font-weight:600;margin-top:6px;padding:2px 10px;border-radius:999px;background:var(--fg);color:#000}
@@ -290,7 +293,7 @@ body:hover .glow{opacity:1}
   <div class="proj-row">
     <a class="stage" href="https://istu2174.github.io/duitku-web-treking-keuangan-pribadi/" target="_blank" rel="noopener">
       <div class="laptop"><div class="screen"><img src="img/duitku-desktop.jpg" alt="Duitku di laptop" loading="lazy"></div><div class="base"></div></div>
-      <div class="phone"><img src="img/duitku-hp.jpg" alt="Duitku di HP" loading="lazy"></div>
+      <div class="phone" style="--sb:#fef9f3"><img src="img/duitku-hp.jpg" alt="Duitku di HP" loading="lazy"></div>
     </a>
     <div class="proj-info">
       <h3>Duitku<span class="badge">LIVE</span></h3>
@@ -315,7 +318,7 @@ body:hover .glow{opacity:1}
   <div class="proj-row">
     <a class="stage" href="https://istu2174.github.io/blok-blas/" target="_blank" rel="noopener">
       <div class="laptop"><div class="screen"><img src="img/blokblas-desktop.jpg" alt="Blok Blas di laptop" loading="lazy"></div><div class="base"></div></div>
-      <div class="phone"><img src="img/blokblas-hp.jpg" alt="Blok Blas di HP" loading="lazy"></div>
+      <div class="phone" style="--sb:#5a7fa2;--sbt:#fff"><img src="img/blokblas-hp.jpg" alt="Blok Blas di HP" loading="lazy"></div>
     </a>
     <div class="proj-info">
       <h3>Blok Blas<span class="badge">LIVE</span></h3>
@@ -340,7 +343,7 @@ body:hover .glow{opacity:1}
   <div class="proj-row">
     <a class="stage" href="https://github.com/istu2174/PinjamPakaiAset" target="_blank" rel="noopener">
       <div class="laptop"><div class="screen"><img src="img/sipanda-desktop.jpg" alt="Dashboard SIPANDA di laptop" loading="lazy"></div><div class="base"></div></div>
-      <div class="phone"><img src="img/sipanda-hp.jpg" alt="SIPANDA di HP" loading="lazy"></div>
+      <div class="phone" style="--sb:#f4f4f4"><img src="img/sipanda-hp.jpg" alt="SIPANDA di HP" loading="lazy"></div>
     </a>
     <div class="proj-info">
       <h3>SIPANDA</h3>
@@ -392,31 +395,31 @@ body:hover .glow{opacity:1}
     <div>
       <h3>Microsoft Office</h3>
       <ul>
-        <li>Microsoft Word <em>Mahir</em></li>
-        <li>Microsoft Excel <em>Mahir</em></li>
-        <li>Microsoft PowerPoint <em>Mahir</em></li>
-        <li>Google Workspace <em>Mahir</em></li>
+        <li>Microsoft Word <em>Advanced</em></li>
+        <li>Microsoft Excel <em>Advanced</em></li>
+        <li>Microsoft PowerPoint <em>Advanced</em></li>
+        <li>Google Workspace <em>Advanced</em></li>
       </ul>
       <p style="font-size:.8rem;color:var(--muted);margin-top:10px">Tersertifikasi Desktop Office Training — nilai Word 100, PowerPoint 100, Excel 95 (A).</p>
     </div>
     <div>
       <h3>Web Development</h3>
       <ul>
-        <li>HTML, CSS, JavaScript <em>Mahir</em></li>
-        <li>React · Vite · Tailwind <em>Menengah+</em></li>
-        <li>Node.js · Express <em>Menengah+</em></li>
-        <li>PHP · Laravel <em>Menengah</em></li>
-        <li>Python <em>Dasar</em></li>
+        <li>HTML, CSS, JavaScript <em>Advanced</em></li>
+        <li>React · Vite · Tailwind <em>Upper Intermediate</em></li>
+        <li>Node.js · Express <em>Upper Intermediate</em></li>
+        <li>PHP · Laravel <em>Intermediate</em></li>
+        <li>Python <em>Basic</em></li>
       </ul>
     </div>
     <div>
       <h3>Database & Tools</h3>
       <ul>
-        <li>MySQL · PostgreSQL · SQLite <em>Menengah</em></li>
-        <li>Prisma · Supabase <em>Menengah</em></li>
-        <li>Git & GitHub <em>Menengah+</em></li>
-        <li>GitHub Pages · Render · Vercel <em>Menengah</em></li>
-        <li>VS Code · XAMPP · Postman <em>Mahir</em></li>
+        <li>MySQL · PostgreSQL · SQLite <em>Intermediate</em></li>
+        <li>Prisma · Supabase <em>Intermediate</em></li>
+        <li>Git & GitHub <em>Upper Intermediate</em></li>
+        <li>GitHub Pages · Render · Vercel <em>Intermediate</em></li>
+        <li>VS Code · XAMPP · Postman <em>Advanced</em></li>
       </ul>
     </div>
     <div>
@@ -427,7 +430,7 @@ body:hover .glow{opacity:1}
         <li>Manajemen waktu</li>
         <li>Dokumentasi teknis</li>
         <li>Bahasa Indonesia <em>Native</em></li>
-        <li>Bahasa Inggris <em>Pasif</em></li>
+        <li>Bahasa Inggris <em>Passive</em></li>
       </ul>
     </div>
   </div>
