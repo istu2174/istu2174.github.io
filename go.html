@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Membuka demo…</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#050505;--fg:#e2e2e2;--muted:#9a9a9a}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--fg);font-family:Poppins,system-ui,sans-serif;font-weight:300;min-height:100vh;display:grid;place-items:center;padding:24px;text-align:center;overflow:hidden}
+.ghost{position:fixed;inset:auto 0 -4vw 0;font-weight:900;font-size:clamp(6rem,24vw,22rem);line-height:.85;white-space:nowrap;text-transform:uppercase;letter-spacing:-.04em;
+  background:linear-gradient(180deg,#5a5a5a,rgba(5,5,5,0) 80%);-webkit-background-clip:text;background-clip:text;color:transparent;pointer-events:none}
+h1{font-weight:800;text-transform:uppercase;font-size:clamp(2rem,6vw,3.6rem);line-height:1;margin:22px 0 10px}
+p{color:var(--muted);max-width:420px;margin:0 auto}
+.spin{width:46px;height:46px;margin:0 auto;border-radius:50%;border:3px solid #2a2a2a;border-top-color:var(--fg);animation:s 1s linear infinite}
+@keyframes s{to{transform:rotate(360deg)}}
+.bar{width:min(320px,80vw);height:3px;background:#1d1d1d;border-radius:3px;margin:26px auto 0;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--fg);transition:width .8s ease}
+a{display:inline-block;margin-top:24px;padding:11px 24px;border:1.5px solid #d6d6d6;border-radius:999px;font-weight:600;font-size:.9rem;color:var(--fg);text-decoration:none}
+a:hover{background:#fff;color:#000}
+[hidden]{display:none}
+@media (prefers-reduced-motion:reduce){.spin{animation:none}}
+</style>
+</head>
+<body>
+<div class="ghost" id="ghost">DEMO</div>
+<main>
+  <div class="spin" aria-hidden="true"></div>
+  <h1 id="title">Membuka demo</h1>
+  <p id="msg">Server demo sedang disiapkan. Biasanya butuh 30–60 detik kalau baru dibangunkan.</p>
+  <div class="bar" aria-hidden="true"><i id="bar"></i></div>
+  <a id="manual" hidden>Buka langsung ↗</a>
+</main>
+<script>
+// Daftar tetap (bukan URL dari query) supaya halaman ini nggak bisa dipakai buat redirect ke situs lain.
+const APPS = {
+  kasirku: {name: 'KasirKu', to: 'https://kasirku-3srv.onrender.com/', probe: 'https://kasirku-3srv.onrender.com/icon.svg'}
+};
+const app = APPS[new URLSearchParams(location.search).get('app')];
+const $ = id => document.getElementById(id);
+
+if (!app) {
+  $('title').textContent = 'Demo tidak ditemukan';
+  $('msg').textContent = 'Kembali ke portofolio untuk memilih demo.';
+  $('manual').href = './'; $('manual').textContent = '← Portofolio'; $('manual').hidden = false;
+  document.querySelector('.spin').hidden = true;
+} else {
+  document.title = 'Membuka ' + app.name + '…';
+  $('title').textContent = app.name;
+  $('ghost').textContent = app.name;
+  $('manual').href = app.to;
+
+  // Saat server tidur, Render membalas halaman HTML "loading" (bukan gambar), jadi <img> baru
+  // berhasil dimuat setelah aplikasi aslinya benar-benar hidup. Tanpa perlu izin CORS.
+  const start = Date.now(), LIMIT = 120000;
+  const check = () => {
+    const img = new Image();
+    img.onload = () => { $('bar').style.width = '100%'; location.replace(app.to); };
+    img.onerror = () => {
+      const t = Date.now() - start;
+      $('bar').style.width = Math.min(95, t / 600) + '%';
+      if (t > 20000) $('manual').hidden = false;
+      if (t < LIMIT) setTimeout(check, 2500);
+      else $('msg').textContent = 'Server masih lama merespons. Coba buka langsung lewat tombol di bawah.';
+    };
+    img.src = app.probe + '?t=' + Date.now();
+  };
+  check();
+}
+</script>
+</body>
+</html>
