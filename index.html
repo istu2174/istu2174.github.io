@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Istu Amlu Baihaqqi — Portofolio</title>
-<meta name="description" content="Portofolio Istu Amlu Baihaqqi, S.Kom — Web Developer (React, Node.js, Laravel). 6 proyek web lengkap dengan demo live.">
+<meta name="description" content="Portofolio Istu Amlu Baihaqqi, S.Kom — Web Developer (React, Node.js, Laravel). 7 proyek web lengkap dengan demo live.">
 <meta property="og:title" content="Istu Amlu Baihaqqi — Portofolio">
 <meta property="og:description" content="Web Developer · Teknik Informatika Universitas Bina Darma. Lihat proyek & demo live.">
 <meta property="og:image" content="img/foto.jpg">
@@ -61,8 +61,8 @@ img{display:block;max-width:100%}
 .job ul{padding-left:22px;color:#cfcfcf;font-size:clamp(.88rem,1.1vw,1.05rem)}
 
 /* PROYEK: grid kartu seragam 3x2 */
-.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:28px 22px;margin-top:40px;position:relative;z-index:2}
-.tile{display:block}
+.gallery{display:flex;flex-wrap:wrap;justify-content:center;gap:28px 22px;margin-top:40px;position:relative;z-index:2}
+.tile{display:block;flex:0 1 calc(25% - 17px)}
 .tile .frame{border:3px solid var(--line);border-radius:10px;overflow:hidden;aspect-ratio:16/10;background:#111}
 .tile img{width:100%;height:100%;object-fit:cover;object-position:top;transition:transform .6s}
 .tile:hover img{transform:scale(1.04)}
@@ -138,12 +138,12 @@ body:hover .glow{opacity:1}
   .journey,.proj-row,.slide.flip .proj-row{grid-template-columns:1fr}
   .slide.flip .proj-row .stage{order:0}
   .journey-head{position:static}
-  .gallery{grid-template-columns:1fr 1fr;gap:22px 14px}
+  .gallery{gap:22px 14px}.tile{flex-basis:calc(50% - 7px)}
   .skills{grid-template-columns:1fr 1fr;gap:28px 20px}
   .cert{flex-basis:calc(50% - 11px)}
   .lead{text-align:left}
 }
-@media (max-width:480px){.skills,.gallery{grid-template-columns:1fr}.tools img{width:44px;height:44px}}
+@media (max-width:480px){.skills{grid-template-columns:1fr}.tile{flex-basis:100%}.tools img{width:44px;height:44px}}
 </style>
 </head>
 <body>
@@ -224,7 +224,7 @@ body:hover .glow{opacity:1}
 <!-- 3. GALERI PROYEK -->
 <section class="slide" id="proyek">
   <div class="ghost" style="right:-3vw">WORKS</div>
-  <div class="meta"><span></span><a href="https://github.com/istu2174" target="_blank" rel="noopener">6 proyek · 5 demo live · GitHub ↗</a></div>
+  <div class="meta"><span></span><a href="https://github.com/istu2174" target="_blank" rel="noopener">7 proyek · 6 demo live · GitHub ↗</a></div>
   <h2 class="h-big" style="margin-top:20px">Projects</h2>
   <div class="gallery">
     <a class="tile" href="#p-crypto"><div class="frame"><img src="img/crypto-desktop.png" alt="Crypto Risk"></div><div class="cap"><b>Crypto Risk</b>Skripsi · Rule-Based</div></a>
@@ -233,13 +233,14 @@ body:hover .glow{opacity:1}
     <a class="tile" href="#p-blokblas"><div class="frame"><img src="img/blokblas-desktop.jpg" alt="Blok Blas"></div><div class="cap"><b>Blok Blas</b>Game puzzle PWA</div></a>
     <a class="tile" href="#p-sipanda"><div class="frame"><img src="img/sipanda-desktop.jpg" alt="SIPANDA"></div><div class="cap"><b>SIPANDA</b>Laravel · Dispora</div></a>
     <a class="tile" href="#p-kasirku"><div class="frame"><img src="img/kasirku-desktop.jpg" alt="KasirKu"></div><div class="cap"><b>KasirKu</b>POS kafe &amp; resto</div></a>
+    <a class="tile" href="#p-antresehat"><div class="frame"><img src="img/antresehat-desktop.jpg" alt="AntreSehat"></div><div class="cap"><b>AntreSehat</b>Antrean klinik realtime</div></a>
   </div>
 </section>
 
 <!-- 4. DETAIL PROYEK -->
 <section class="slide" id="p-crypto">
   <div class="ghost" style="right:-4vw">CRYPTO</div>
-  <div class="meta"><span class="num">01 / 06</span><span>Skripsi</span></div>
+  <div class="meta"><span class="num">01 / 07</span><span>Skripsi</span></div>
   <div class="proj-row">
     <a class="stage" href="https://crypto-risk-assessment.vercel.app/" data-wake="https://crypto-risk-assessment.onrender.com/health" target="_blank" rel="noopener">
       <div class="laptop"><div class="screen"><img src="img/crypto-desktop.png" alt="Crypto Risk di laptop" loading="lazy"></div><div class="base"></div></div>
@@ -264,7 +265,7 @@ body:hover .glow{opacity:1}
 
 <section class="slide flip" id="p-stokku">
   <div class="ghost" style="left:-3vw">STOKKU</div>
-  <div class="meta"><span class="num">02 / 06</span><span>Inventory System</span></div>
+  <div class="meta"><span class="num">02 / 07</span><span>Inventory System</span></div>
   <div class="proj-row">
     <a class="stage" href="https://stokku-kjxx.onrender.com" target="_blank" rel="noopener">
       <div class="laptop"><div class="screen"><img src="img/stokku-desktop.jpg" alt="Dashboard StokKu di laptop" loading="lazy"></div><div class="base"></div></div>
@@ -289,7 +290,7 @@ body:hover .glow{opacity:1}
 
 <section class="slide" id="p-duitku">
   <div class="ghost" style="right:-4vw">DUITKU</div>
-  <div class="meta"><span class="num">03 / 06</span><span>Web App Keuangan</span></div>
+  <div class="meta"><span class="num">03 / 07</span><span>Web App Keuangan</span></div>
   <div class="proj-row">
     <a class="stage" href="https://istu2174.github.io/duitku-web-treking-keuangan-pribadi/" target="_blank" rel="noopener">
       <div class="laptop"><div class="screen"><img src="img/duitku-desktop.jpg" alt="Duitku di laptop" loading="lazy"></div><div class="base"></div></div>
@@ -314,7 +315,7 @@ body:hover .glow{opacity:1}
 
 <section class="slide flip" id="p-blokblas">
   <div class="ghost" style="left:-3vw">GAME</div>
-  <div class="meta"><span class="num">04 / 06</span><span>Game · PWA</span></div>
+  <div class="meta"><span class="num">04 / 07</span><span>Game · PWA</span></div>
   <div class="proj-row">
     <a class="stage" href="https://istu2174.github.io/blok-blas/" target="_blank" rel="noopener">
       <div class="laptop"><div class="screen"><img src="img/blokblas-desktop.jpg" alt="Blok Blas di laptop" loading="lazy"></div><div class="base"></div></div>
@@ -339,7 +340,7 @@ body:hover .glow{opacity:1}
 
 <section class="slide" id="p-sipanda">
   <div class="ghost" style="right:-4vw">SIPANDA</div>
-  <div class="meta"><span class="num">05 / 06</span><span>Sistem Instansi</span></div>
+  <div class="meta"><span class="num">05 / 07</span><span>Sistem Instansi</span></div>
   <div class="proj-row">
     <a class="stage" href="https://github.com/istu2174/PinjamPakaiAset" target="_blank" rel="noopener">
       <div class="laptop"><div class="screen"><img src="img/sipanda-desktop.jpg" alt="Dashboard SIPANDA di laptop" loading="lazy"></div><div class="base"></div></div>
@@ -363,7 +364,7 @@ body:hover .glow{opacity:1}
 
 <section class="slide flip" id="p-kasirku">
   <div class="ghost" style="left:-3vw">KASIRKU</div>
-  <div class="meta"><span class="num">06 / 06</span><span>Point of Sale</span></div>
+  <div class="meta"><span class="num">06 / 07</span><span>Point of Sale</span></div>
   <div class="proj-row">
     <a class="stage" href="go.html?app=kasirku" target="_blank" rel="noopener">
       <div class="laptop"><div class="screen"><img src="img/kasirku-desktop.jpg" alt="Halaman kasir KasirKu di laptop" loading="lazy"></div><div class="base"></div></div>
@@ -381,6 +382,31 @@ body:hover .glow{opacity:1}
       <div class="cta" style="margin-top:0">
         <a class="btn solid" href="go.html?app=kasirku" target="_blank" rel="noopener">Coba Demo ↗</a>
         <a class="btn" href="https://github.com/istu2174/kasirku" target="_blank" rel="noopener">Source Code</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="p-antresehat">
+  <div class="ghost" style="right:-4vw">SEHAT</div>
+  <div class="meta"><span class="num">07 / 07</span><span>Kesehatan · Realtime</span></div>
+  <div class="proj-row">
+    <a class="stage" href="https://antresehat.vercel.app/" target="_blank" rel="noopener">
+      <div class="laptop"><div class="screen"><img src="img/antresehat-laporan.jpg" alt="Laporan kunjungan AntreSehat di laptop" loading="lazy"></div><div class="base"></div></div>
+      <div class="phone" style="--sb:#eceef1"><img src="img/antresehat-hp.jpg" alt="Dashboard antrean resepsionis AntreSehat di HP" loading="lazy"></div>
+    </a>
+    <div class="proj-info">
+      <h3>AntreSehat<span class="badge">LIVE</span></h3>
+      <div class="sub">Booking &amp; Antrean Klinik Realtime</div>
+      <ul>
+        <li>Pasien booking dari HP, dapat tiket QR, dan memantau posisi antrean secara realtime</li>
+        <li>Dashboard resepsionis: check-in scan QR, pasien walk-in, panggil nomor 1 klik + layar TV bersuara</li>
+        <li>Laporan waktu tunggu, no-show &amp; jam tersibuk, ekspor Excel/CSV, 4 role dengan Row Level Security</li>
+      </ul>
+      <div class="stack"><span>Next.js 15</span><span>TypeScript</span><span>Supabase</span><span>PostgreSQL</span><span>Tailwind</span><span>Recharts</span></div>
+      <div class="cta" style="margin-top:0">
+        <a class="btn solid" href="https://antresehat.vercel.app/" target="_blank" rel="noopener">Coba Demo ↗</a>
+        <a class="btn" href="https://github.com/istu2174/antresehat" target="_blank" rel="noopener">Source Code</a>
       </div>
     </div>
   </div>
