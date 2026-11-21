@@ -11,10 +11,10 @@
 <meta name="theme-color" content="#0b0b0c">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#0b0b0c;--ink:#ece8e1;--muted:#8d877e;--dim:#55514b;--line:rgba(236,232,225,.16);--accent:#ff5b3a;--glow:#ffb38a;
-  --display:"Space Grotesk",system-ui,sans-serif;--mono:"JetBrains Mono",ui-monospace,monospace;--gut:clamp(20px,5vw,72px)}
+  --display:"Space Grotesk",system-ui,sans-serif;--mono:"Space Grotesk",system-ui,sans-serif;--gut:clamp(20px,5vw,72px)}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--ink);font:400 16px/1.65 Manrope,system-ui,sans-serif;overflow-x:clip}
@@ -37,7 +37,7 @@ ul{list-style:none}
   background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 
 /* HUD: bingkai jendela kamera */
-.hud{position:fixed;inset:14px;z-index:50;pointer-events:none;border:1px solid var(--line);font:500 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.hud{position:fixed;inset:14px;z-index:50;pointer-events:none;font:500 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .hud > span{position:absolute;padding:10px 12px;background:rgba(11,11,12,.75)}
 .hud .tl{left:0;top:0;color:var(--ink)}.hud .tr{right:0;top:0}.hud .bl{left:0;bottom:0}.hud .br{right:0;bottom:0;color:var(--ink)}
 .hud .rec{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--accent);margin-right:7px;vertical-align:0;animation:blink 1.4s steps(1) infinite}
@@ -57,7 +57,7 @@ ul{list-style:none}
   background:repeating-linear-gradient(0deg,rgba(0,0,0,.1) 0 1px,transparent 1px 3px),radial-gradient(130% 120% at 50% 45%,transparent 62%,rgba(0,0,0,.5));
   box-shadow:inset 0 0 30px rgba(0,0,0,.8)}
 .tv .scr::before{content:"";position:absolute;z-index:1;inset:4% 40% 55% 6%;border-radius:50%;background:linear-gradient(160deg,rgba(255,255,255,.07),transparent 70%);pointer-events:none}
-.tv::after{content:"";position:absolute;right:7%;bottom:3.6%;width:6%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 35% 35%,#6a655e,#25231f 70%)}
+.tv::after{content:"";position:absolute;right:7%;bottom:3.6%;width:6%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 35% 35%,#ff7a5c,#c4241a 55%,#5c0d08);box-shadow:0 0 6px rgba(255,60,40,.5)}
 .tv::before{content:attr(data-name);position:absolute;left:7%;bottom:4.2%;font:600 clamp(6px,.7vw,10px)/1 var(--display);letter-spacing:.2em;color:#7a746b}
 
 /* section dasar */
@@ -183,8 +183,6 @@ main > section{position:relative;padding:clamp(96px,14vh,140px) var(--gut);min-h
 .big-tv .static{animation:flick 6s steps(1) infinite}
 @keyframes flick{0%,90%,100%{opacity:0}92%{opacity:.55}94%{opacity:.1}96%{opacity:.4}}
 /* hero masuk sekali saat load */
-.js [data-rise]{animation:rise 1s cubic-bezier(.2,.7,.2,1) both;animation-delay:var(--d,0s)}
-@keyframes rise{from{opacity:0;transform:translateY(34px);filter:blur(10px)}}
 /* TV di dinding melayang pelan */
 .wall .tv{animation:bob var(--t,7s) ease-in-out infinite alternate}
 @keyframes bob{to{translate:0 -14px}}
@@ -207,6 +205,12 @@ main > section{position:relative;padding:clamp(96px,14vh,140px) var(--gut);min-h
   .journey,.end .wrap{grid-template-columns:1fr}
   .skills,.certs{grid-template-columns:repeat(2,minmax(0,1fr))}
   .wall .tv.far{display:none}
+  .hero{display:flex;flex-direction:column;justify-content:center}
+  .wall{position:relative;inset:auto;order:2;width:100%;max-width:560px;margin:34px auto 0;perspective:none}
+  .wall-in{position:relative;inset:auto;display:flex;justify-content:center;gap:12px;transform:none!important;animation:none!important}
+  .wall .tv{position:relative;left:auto;top:auto;width:31%;transform:none;filter:brightness(.6);opacity:1}
+  .wall.focus .tv{filter:brightness(.45) blur(1px)}
+  .wall.focus .tv.on{filter:none;transform:translateY(-8px) scale(1.06)}
   .nav a{padding:9px 8px}
 }
 @media (max-width:560px){
@@ -214,8 +218,6 @@ main > section{position:relative;padding:clamp(96px,14vh,140px) var(--gut);min-h
   .nav{top:16px}.nav a{padding:9px 7px;font-size:10px}
   .skills{grid-template-columns:1fr}
   .certs{gap:16px}
-  .wall .tv{opacity:.5}
-  .wall.focus .tv.on{opacity:.95}
   .reel{height:calc(72vw * .76)}
   .reel .tv{width:72vw;margin-left:-36vw;transform:translateX(calc(var(--o) * 92%)) translateZ(calc(var(--a) * -200px)) rotateY(calc(var(--o) * -24deg))}
   .row .btn{flex:1;justify-content:center}
@@ -236,7 +238,6 @@ main > section{position:relative;padding:clamp(96px,14vh,140px) var(--gut);min-h
   <span class="tl">Istu.A.B — Portofolio</span>
   <span class="tr"><i class="rec"></i>REC <span id="clock">--:--:--</span> WIB</span>
   <span class="bl">Palembang · 2026</span>
-  <span class="br" id="where">01 / 06 · Tentang</span>
 </div>
 <nav class="nav" aria-label="Navigasi">
   <a href="#tentang" class="on">Tentang</a><a href="#proyek">Proyek</a><a href="#keahlian">Skill</a><a href="#kontak">Kontak</a>
@@ -263,15 +264,15 @@ main > section{position:relative;padding:clamp(96px,14vh,140px) var(--gut);min-h
     </div>
   </div>
   <div class="hero-copy">
-    <div class="tag" data-rise>Web Developer</div>
-    <h1 class="h" data-rise style="--d:.12s">Halo, saya<br><em>Istu</em></h1>
-    <span class="tv face tune" data-name="ISTU" data-rise style="--d:.35s;--td:.55s"><span class="scr"><i class="static"></i><img src="img/foto.jpg" alt="Foto Istu Amlu Baihaqqi"></span></span>
-    <p class="lead" data-rise style="--d:.55s">Lulusan Teknik Informatika Universitas Bina Darma, Palembang. Saya membangun aplikasi web full-stack dari nol sampai online: merancang database, menulis backend dengan hak akses per role, lalu membuat tampilan yang rapi di laptop maupun HP. Pengalaman magang IT di dua dinas Pemprov Sumatera Selatan, dan tujuh proyek saya bisa langsung dicoba di bawah.</p>
-    <div class="row" data-rise style="--d:.7s">
+    <div class="tag" data-reveal>Web Developer</div>
+    <h1 class="h" data-reveal style="--d:.12s">Halo, saya<br><em>Istu</em></h1>
+    <span class="tv face tune" data-name="ISTU" data-reveal style="--d:.35s;--td:.55s"><span class="scr"><i class="static"></i><img src="img/foto.jpg" alt="Foto Istu Amlu Baihaqqi"></span></span>
+    <p class="lead" data-reveal style="--d:.55s">Lulusan Teknik Informatika Universitas Bina Darma, Palembang. Saya membangun aplikasi web full-stack dari nol sampai online: merancang database, menulis backend dengan hak akses per role, lalu membuat tampilan yang rapi di laptop maupun HP. Pengalaman magang IT di dua dinas Pemprov Sumatera Selatan, dan tujuh proyek saya bisa langsung dicoba di bawah.</p>
+    <div class="row" data-reveal style="--d:.7s">
       <a class="btn solid" href="#proyek">Lihat Proyek</a>
       <a class="btn" href="#kontak">Hubungi Saya</a>
     </div>
-    <div class="tools" data-rise style="--d:.85s" aria-label="Tools yang saya kuasai">
+    <div class="tools" data-reveal style="--d:.85s" aria-label="Tools yang saya kuasai">
       <img src="img/word.svg" alt="Microsoft Word" title="Microsoft Word">
       <img src="img/excel.svg" alt="Microsoft Excel" title="Microsoft Excel">
       <img src="img/powerpoint.svg" alt="Microsoft PowerPoint" title="Microsoft PowerPoint">
@@ -542,7 +543,11 @@ if (matchMedia('(hover: none)').matches) {
   }, 2600);
 }
 // muncul saat discroll (sekali)
-const rv = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); rv.unobserve(e.target); } }), {rootMargin: '0px 0px -12% 0px'});
+const rv = new IntersectionObserver(es => es.forEach(e => e.target.classList.toggle('in', e.isIntersecting)), {threshold: 0});
+// TV hero nyala ulang tiap section Tentang kelihatan lagi
+function heroOn() {
+  [...wall.querySelectorAll('.tv'), document.querySelector('.face')].filter(t => t.offsetParent).forEach((t, i) => tune(t, .25 + i * .15));
+}
 document.querySelectorAll('[data-reveal]').forEach(el => rv.observe(el));
 // sapuan scanline saat klik nav
 const sweep = document.querySelector('.sweep');
@@ -584,12 +589,11 @@ show(0); first = false; fromHash();
 
 // HUD bawah + nav aktif ikut section yang terlihat
 const secs = [...document.querySelectorAll('main > section')];
-const where = document.getElementById('where');
 const navs = [...document.querySelectorAll('.nav a')];
 const io = new IntersectionObserver(es => es.forEach(e => {
   if (!e.isIntersecting) return;
-  const k = secs.indexOf(e.target);
-  where.textContent = `${String(k + 1).padStart(2, '0')} / ${String(secs.length).padStart(2, '0')} · ${e.target.dataset.label}`;
+  if (e.target.id === 'tentang') heroOn();
+  if (e.target.id === 'proyek') tune(tvs[cur]);
   navs.forEach(a => a.classList.toggle('on', a.hash === '#' + e.target.id));
 }), {rootMargin: '-45% 0px -45% 0px'});
 secs.forEach(s => io.observe(s));
