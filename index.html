@@ -201,19 +201,18 @@ main > section{position:relative;padding:clamp(96px,14vh,140px) var(--gut);min-h
   background:linear-gradient(transparent,rgba(255,91,58,.12) 60%,rgba(236,232,225,.35) 98%,transparent);mix-blend-mode:screen}
 .sweep.go{animation:sweep .7s cubic-bezier(.4,0,.2,1)}
 @keyframes sweep{0%{opacity:1;transform:translateY(0)}100%{opacity:1;transform:translateY(160vh)}}
-.wall .tv.dup{display:none}
 @media (max-width:900px){
-  .wall .tv.dup{display:block}
   .journey,.end .wrap{grid-template-columns:1fr}
   .skills,.certs{grid-template-columns:repeat(2,minmax(0,1fr))}
   .hero{display:flex;flex-direction:column;justify-content:center;padding-bottom:56px}
   .wall{position:relative;inset:auto;order:2;width:100vw;margin:34px calc(50% - 50vw) 0;padding:14px 0;perspective:none;overflow:hidden;
     -webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
   /* semua TV (plus salinannya) jalan pelan ke samping tanpa putus */
-  .wall-in{position:relative;inset:auto;display:flex;gap:14px;width:max-content;animation:none!important;transform:none;will-change:transform}
+  /* tiap TV diputar sendiri-sendiri (JS), jadi 7 -> 1 nyambung tanpa lompat */
+  .wall-in{position:relative;inset:auto;height:calc(clamp(130px,38vw,220px) * .75 + 28px);animation:none!important;transform:none!important}
   .wall{touch-action:pan-y;cursor:grab}
   .wall .tv img{pointer-events:none;-webkit-user-drag:none;user-select:none}
-  .wall .tv{position:relative;left:auto;top:auto;width:clamp(130px,38vw,220px);flex:none;transform:none;filter:brightness(.6);opacity:1}
+  .wall .tv{position:absolute;left:0;top:14px;width:clamp(130px,38vw,220px);transform:none;filter:brightness(.6);opacity:1;will-change:left}
   .wall.focus .tv{filter:brightness(.45) blur(1px)}
   .wall.focus .tv.on{filter:none;transform:translateY(-8px) scale(1.06)}
   .nav a{padding:9px 8px}
@@ -525,13 +524,13 @@ if (!calm) addEventListener('pointermove', e => {
   wall.style.setProperty('--ry', ((e.clientY / innerHeight) - .5) * -6 + 'deg');
 }, {passive: true});
 const wallIn = wall.querySelector('.wall-in');
-[...wallIn.children].forEach(tv => { const c = tv.cloneNode(true); c.classList.add('dup'); c.setAttribute('aria-hidden', 'true'); c.tabIndex = -1; wallIn.appendChild(c); });
 
 // HP/tablet: deretan TV jalan pelan ke samping sendiri, bisa digeser pakai jari
 (() => {
   let x = 0, v = 0, drag = null, moved = false, last = performance.now();
-  const loopLen = () => wallIn.querySelector('.dup').offsetLeft - wallIn.firstElementChild.offsetLeft;
-  const strip = () => getComputedStyle(wallIn).display === 'flex';
+  const mq = matchMedia('(max-width: 900px)'), strip = () => mq.matches;
+  const items = [...wallIn.children];
+  mq.addEventListener('change', () => { if (!strip()) items.forEach(t => t.style.left = ''); });
   function frame(now) {
     const dt = Math.min(now - last, 50) / 1000; last = now;
     if (strip()) {
@@ -539,10 +538,10 @@ const wallIn = wall.querySelector('.wall-in');
         v += (28 - v) * Math.min(dt * 1.5, 1);   // momentum pelan-pelan balik ke kecepatan jalan
         x += v * dt;
       }
-      const L = loopLen();
-      if (L > 0) x = ((x % L) + L) % L;
-      wallIn.style.transform = `translateX(${-x}px)`;
-    } else wallIn.style.transform = '';
+      // tiap TV punya slot di cincin sepanjang 7 slot; yang keluar kiri muncul lagi di kanan (di luar layar)
+      const step = items[0].offsetWidth + 14, total = step * items.length;
+      items.forEach((t, i) => { t.style.left = ((((i * step - x) % total) + total) % total - step) + 'px'; });
+    }
     requestAnimationFrame(frame);
   }
   requestAnimationFrame(frame);
@@ -584,7 +583,7 @@ if (matchMedia('(hover: none)').matches) {
     if (!vis.length) return;
     vis.forEach(t => t.classList.remove('on'));
     let pick;
-    if (getComputedStyle(wallIn).display === 'flex') {   // mode deretan HP: fokus ke TV paling tengah layar
+    if (matchMedia('(max-width: 900px)').matches) {   // mode deretan HP: fokus ke TV paling tengah layar
       const mid = innerWidth / 2, d = t => { const r = t.getBoundingClientRect(); return Math.abs(r.left + r.width / 2 - mid); };
       pick = vis.reduce((a, b) => d(b) < d(a) ? b : a);
     } else { f = (f + 1) % vis.length; pick = vis[f]; }
