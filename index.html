@@ -79,21 +79,30 @@ img{display:block;max-width:100%}
 .proj-row{display:grid;grid-template-columns:1fr 1fr;gap:4vw;align-items:center;position:relative;z-index:2;margin-top:clamp(40px,11vw,170px)}
 .slide.flip .proj-row .stage{order:2}
 /* mockup laptop + HP */
-.stage{position:relative;display:block;padding-bottom:28px}
-.laptop{width:88%}
-.slide.flip .laptop{margin-left:auto}
-.laptop .screen{background:#141414;border:2px solid #3a3a3a;border-radius:14px 14px 0 0;padding:10px;box-shadow:0 30px 60px -25px rgba(255,255,255,.08)}
-.laptop .screen img{width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top;border-radius:3px}
-.laptop .base{height:14px;background:linear-gradient(#cfcfcf,#7d7d7d);border-radius:0 0 14px 14px;margin:0 -6%;position:relative}
-.laptop .base::after{content:"";position:absolute;left:42%;right:42%;top:0;height:5px;background:#666;border-radius:0 0 6px 6px}
-/* bingkai HP: bezel + rangka metal, status bar (warna ikut aplikasi via --sb), dynamic island */
-.phone{position:absolute;right:0;bottom:0;width:24%;max-width:160px;padding:5px;border-radius:30px;
-  background:linear-gradient(150deg,#262626,#050505 60%);
-  box-shadow:0 0 0 1.5px #6b6b6b,0 0 0 3px #161616,inset 0 0 0 1px #000,0 30px 50px -15px rgba(0,0,0,.9);transform:rotate(4deg)}
-.phone img{display:block;width:100%;aspect-ratio:9/19;object-fit:cover;object-position:top;border-radius:25px;border-top:18px solid var(--sb,#fff);background:var(--sb,#fff)}
-.phone::before{content:"";position:absolute;z-index:2;top:9px;left:50%;width:30%;height:10px;transform:translateX(-50%);border-radius:10px;background:#000}
-.phone::after{content:"9:41";position:absolute;z-index:2;top:8px;left:15%;font:600 7px/12px Poppins,system-ui,sans-serif;color:var(--sbt,#111)}
-.slide.flip .phone{right:auto;left:0;transform:rotate(-4deg)}
+.stage{position:relative;display:block;padding-bottom:6cqw;container-type:inline-size}
+/* MacBook: bezel hitam tipis + notch, tutup aluminium, engsel, bodi bawah dengan lekukan jari. Semua ukuran pakai cqw (lebar panggung). */
+.laptop{width:84%;margin-left:7%}
+.slide.flip .laptop{margin-left:auto;margin-right:7%}
+.laptop .screen{position:relative;background:#050505;padding:1.6cqw 1.6cqw 2cqw;border-radius:2.4cqw 2.4cqw .6cqw .6cqw;
+  box-shadow:0 0 0 .18cqw #2c2c2e,0 0 0 .38cqw #a7a7ac,0 0 0 .48cqw #6e6e73,inset 0 0 0 .1cqw #1c1c1e}
+.laptop .screen::before{content:"";position:absolute;z-index:1;top:1.55cqw;left:50%;width:9cqw;height:1.35cqw;transform:translateX(-50%);background:#050505;border-radius:0 0 .9cqw .9cqw}
+.laptop .screen::after{content:"";position:absolute;z-index:2;top:2cqw;left:50%;width:.45cqw;height:.45cqw;transform:translateX(-50%);border-radius:50%;background:radial-gradient(#2c3e5a 30%,#111 70%)}
+.laptop .screen img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top;border-radius:.5cqw .5cqw .2cqw .2cqw}
+.laptop .base{position:relative;height:1.7cqw;margin:0 -7.5%;border-radius:.3cqw .3cqw 2.2cqw 2.2cqw / .3cqw .3cqw 1.5cqw 1.5cqw;
+  background:linear-gradient(#f2f2f4 0,#d4d4d8 18%,#b9b9be 55%,#7c7c81 100%);
+  box-shadow:inset 0 .1cqw 0 #fff,0 2.4cqw 3cqw -1cqw rgba(0,0,0,.85)}
+.laptop .base::before{content:"";position:absolute;top:0;left:8.5%;right:8.5%;height:.35cqw;background:linear-gradient(#1d1d1f,#4a4a4e);border-radius:0 0 .3cqw .3cqw}
+.laptop .base::after{content:"";position:absolute;top:0;left:43%;right:43%;height:.75cqw;background:linear-gradient(#8e8e93,#c7c7cc);border-radius:0 0 1.2cqw 1.2cqw}
+/* iPhone: rangka titanium, bezel hitam tipis, Dynamic Island, status bar ikut warna app (--sb), tombol samping */
+.phone{--w:min(25cqw,180px);position:absolute;right:1cqw;bottom:2cqw;width:var(--w);padding:calc(var(--w)*.032);border-radius:calc(var(--w)*.175);background:#000;
+  box-shadow:0 0 0 calc(var(--w)*.01) #1c1c1e,0 0 0 calc(var(--w)*.024) #a2a2a7,0 0 0 calc(var(--w)*.03) #5f5f64,
+    calc(var(--w)*-.06) calc(var(--w)*.12) calc(var(--w)*.2) rgba(0,0,0,.75)}
+.phone img{display:block;width:100%;aspect-ratio:9/19.5;object-fit:cover;object-position:top;border-radius:calc(var(--w)*.145);
+  border-top:calc(var(--w)*.12) solid var(--sb,#fff);background:var(--sb,#fff)}
+.phone::before{content:"";position:absolute;z-index:2;top:calc(var(--w)*.062);left:50%;width:calc(var(--w)*.3);height:calc(var(--w)*.088);transform:translateX(-50%);border-radius:99px;background:#000}
+.phone::after{content:"";position:absolute;top:calc(var(--w)*.5);right:calc(var(--w)*-.042);width:calc(var(--w)*.016);height:calc(var(--w)*.24);border-radius:0 3px 3px 0;background:linear-gradient(90deg,#6e6e73,#b4b4b9);
+  box-shadow:calc(var(--w)*-1.068) calc(var(--w)*-.06) 0 #8e8e93,calc(var(--w)*-1.068) calc(var(--w)*.24) 0 #8e8e93}
+.slide.flip .phone{right:auto;left:1cqw}
 .num{font-weight:300;font-size:.95rem;color:var(--muted);letter-spacing:.2em}
 .proj-info h3{font-weight:800;text-transform:uppercase;font-size:clamp(2.2rem,5vw,4.4rem);line-height:.95;margin:6px 0 4px}
 .proj-info .sub{font-weight:500;margin-bottom:14px;color:#cfcfcf}
