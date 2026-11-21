@@ -201,14 +201,19 @@ main > section{position:relative;padding:clamp(96px,14vh,140px) var(--gut);min-h
   background:linear-gradient(transparent,rgba(255,91,58,.12) 60%,rgba(236,232,225,.35) 98%,transparent);mix-blend-mode:screen}
 .sweep.go{animation:sweep .7s cubic-bezier(.4,0,.2,1)}
 @keyframes sweep{0%{opacity:1;transform:translateY(0)}100%{opacity:1;transform:translateY(160vh)}}
+.wall .tv.dup{display:none}
 @media (max-width:900px){
+  .wall .tv.dup{display:block}
   .journey,.end .wrap{grid-template-columns:1fr}
   .skills,.certs{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .wall .tv.far{display:none}
-  .hero{display:flex;flex-direction:column;justify-content:center}
-  .wall{position:relative;inset:auto;order:2;width:100%;max-width:560px;margin:34px auto 0;perspective:none}
-  .wall-in{position:relative;inset:auto;display:flex;justify-content:center;gap:12px;transform:none!important;animation:none!important}
-  .wall .tv{position:relative;left:auto;top:auto;width:31%;transform:none;filter:brightness(.6);opacity:1}
+  .hero{display:flex;flex-direction:column;justify-content:center;padding-bottom:56px}
+  .wall{position:relative;inset:auto;order:2;width:100vw;margin:34px calc(50% - 50vw) 0;padding:14px 0;perspective:none;overflow:hidden;
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+  /* semua TV (plus salinannya) jalan pelan ke samping tanpa putus */
+  .wall-in{position:relative;inset:auto;display:flex;gap:14px;width:max-content;animation:none!important;transform:none;will-change:transform}
+  .wall{touch-action:pan-y;cursor:grab}
+  .wall .tv img{pointer-events:none;-webkit-user-drag:none;user-select:none}
+  .wall .tv{position:relative;left:auto;top:auto;width:clamp(130px,38vw,220px);flex:none;transform:none;filter:brightness(.6);opacity:1}
   .wall.focus .tv{filter:brightness(.45) blur(1px)}
   .wall.focus .tv.on{filter:none;transform:translateY(-8px) scale(1.06)}
   .nav a{padding:9px 8px}
@@ -223,7 +228,7 @@ main > section{position:relative;padding:clamp(96px,14vh,140px) var(--gut);min-h
   .row .btn{flex:1;justify-content:center}
 }
 @media (prefers-reduced-motion:reduce){
-  .room::before,.room::after,.wall-in,.wall .tv,.sweep{animation:none!important}
+  .room::before,.room::after,.wall .tv,.sweep{animation:none!important}
   html{scroll-behavior:auto}
 }
 </style>
@@ -519,6 +524,46 @@ if (!calm) addEventListener('pointermove', e => {
   wall.style.setProperty('--rx', ((e.clientX / innerWidth) - .5) * 8 + 'deg');
   wall.style.setProperty('--ry', ((e.clientY / innerHeight) - .5) * -6 + 'deg');
 }, {passive: true});
+const wallIn = wall.querySelector('.wall-in');
+[...wallIn.children].forEach(tv => { const c = tv.cloneNode(true); c.classList.add('dup'); c.setAttribute('aria-hidden', 'true'); c.tabIndex = -1; wallIn.appendChild(c); });
+
+// HP/tablet: deretan TV jalan pelan ke samping sendiri, bisa digeser pakai jari
+(() => {
+  let x = 0, v = 0, drag = null, moved = false, last = performance.now();
+  const loopLen = () => wallIn.querySelector('.dup').offsetLeft - wallIn.firstElementChild.offsetLeft;
+  const strip = () => getComputedStyle(wallIn).display === 'flex';
+  function frame(now) {
+    const dt = Math.min(now - last, 50) / 1000; last = now;
+    if (strip()) {
+      if (!drag) {
+        v += (28 - v) * Math.min(dt * 1.5, 1);   // momentum pelan-pelan balik ke kecepatan jalan
+        x += v * dt;
+      }
+      const L = loopLen();
+      if (L > 0) x = ((x % L) + L) % L;
+      wallIn.style.transform = `translateX(${-x}px)`;
+    } else wallIn.style.transform = '';
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+  wall.addEventListener('pointerdown', e => {
+    if (!strip()) return;
+    drag = {sx: e.clientX, x0: x, lx: e.clientX, lt: performance.now()}; moved = false; v = 0;
+  });
+  addEventListener('pointermove', e => {
+    if (!drag) return;
+    const dx = e.clientX - drag.sx;
+    if (Math.abs(dx) > 8) moved = true;
+    x = drag.x0 - dx;
+    const t = performance.now();
+    if (t > drag.lt) v = -(e.clientX - drag.lx) / ((t - drag.lt) / 1000);
+    drag.lx = e.clientX; drag.lt = t;
+  });
+  const end = () => { if (drag) { v = Math.max(-1500, Math.min(1500, v)); drag = null; } };
+  addEventListener('pointerup', end); addEventListener('pointercancel', end);
+  wall.addEventListener('click', e => { if (moved) { e.preventDefault(); e.stopPropagation(); moved = false; } }, true);
+})();
+
 wall.querySelectorAll('.tv').forEach(tv => {
   tv.addEventListener('pointerenter', () => { wall.classList.add('focus'); tv.classList.add('on'); });
   tv.addEventListener('pointerleave', () => { wall.classList.remove('focus'); tv.classList.remove('on'); });
@@ -538,8 +583,12 @@ if (matchMedia('(hover: none)').matches) {
     const vis = [...wall.querySelectorAll('.tv')].filter(t => t.offsetParent);
     if (!vis.length) return;
     vis.forEach(t => t.classList.remove('on'));
-    f = (f + 1) % vis.length;
-    wall.classList.add('focus'); vis[f].classList.add('on'); tune(vis[f]);
+    let pick;
+    if (getComputedStyle(wallIn).display === 'flex') {   // mode deretan HP: fokus ke TV paling tengah layar
+      const mid = innerWidth / 2, d = t => { const r = t.getBoundingClientRect(); return Math.abs(r.left + r.width / 2 - mid); };
+      pick = vis.reduce((a, b) => d(b) < d(a) ? b : a);
+    } else { f = (f + 1) % vis.length; pick = vis[f]; }
+    wall.classList.add('focus'); pick.classList.add('on'); tune(pick);
   }, 2600);
 }
 // muncul saat discroll (sekali)
