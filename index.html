@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="id">
+<html lang="id" class="js">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -50,12 +50,13 @@ ul{list-style:none}
 /* TV tabung, dipakai di mana-mana */
 .tv{display:block;position:relative;padding:1px 0;border-radius:14px 14px 11px 11px;background:linear-gradient(160deg,#3b3834,#1e1c1a 60%,#151413);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.12),inset 0 -3px 6px rgba(0,0,0,.5),0 30px 60px -20px rgba(0,0,0,.9)}
-.tv .scr{display:block;position:relative;overflow:hidden;aspect-ratio:4/3;margin:5.5% 5.5% 13%;/* margin %, bukan padding %: ngikut lebar TV walau TV-nya absolute */border-radius:9% / 12%;background:#000;box-shadow:0 0 0 3px #0a0a0a,0 0 24px rgba(255,179,138,.18)}
-.tv .scr img{width:100%;height:100%;object-fit:cover;object-position:left top;filter:contrast(1.06) saturate(.92)}
+.tv .scr{display:block;position:relative;overflow:hidden;aspect-ratio:16/10;margin:5.5% 5.5% 13%;/* margin %, bukan padding %: ngikut lebar TV walau TV-nya absolute */border-radius:9% / 12%;background:#000;box-shadow:0 0 0 3px #0a0a0a,0 0 24px rgba(255,179,138,.18)}
+.tv .scr img{width:100%;height:100%;object-fit:cover;object-position:center top;filter:brightness(.92) contrast(1.04) saturate(.95);transform-origin:center}
+.face .scr,.big-tv .scr{aspect-ratio:4/3}
 .tv .scr::after{content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;
-  background:repeating-linear-gradient(0deg,rgba(0,0,0,.22) 0 1px,transparent 1px 3px),radial-gradient(120% 100% at 50% 50%,transparent 55%,rgba(0,0,0,.7));
+  background:repeating-linear-gradient(0deg,rgba(0,0,0,.1) 0 1px,transparent 1px 3px),radial-gradient(130% 120% at 50% 45%,transparent 62%,rgba(0,0,0,.5));
   box-shadow:inset 0 0 30px rgba(0,0,0,.8)}
-.tv .scr::before{content:"";position:absolute;z-index:1;inset:4% 40% 55% 6%;border-radius:50%;background:linear-gradient(160deg,rgba(255,255,255,.14),transparent 70%);pointer-events:none}
+.tv .scr::before{content:"";position:absolute;z-index:1;inset:4% 40% 55% 6%;border-radius:50%;background:linear-gradient(160deg,rgba(255,255,255,.07),transparent 70%);pointer-events:none}
 .tv::after{content:"";position:absolute;right:7%;bottom:3.6%;width:6%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 35% 35%,#6a655e,#25231f 70%)}
 .tv::before{content:attr(data-name);position:absolute;left:7%;bottom:4.2%;font:600 clamp(6px,.7vw,10px)/1 var(--display);letter-spacing:.2em;color:#7a746b}
 
@@ -106,10 +107,10 @@ main > section{position:relative;padding:clamp(96px,14vh,140px) var(--gut);min-h
 /* PROYEK: reel TV */
 .cases{text-align:center;overflow:hidden}
 .cases .tag{justify-content:center}
-.reel{position:relative;height:clamp(240px,33vw,410px);margin-top:36px;perspective:1400px}
+.reel{position:relative;height:calc(clamp(260px,36vw,480px) * .76);margin-top:36px;perspective:1400px}
 .reel .tv{position:absolute;left:50%;top:0;width:clamp(260px,36vw,480px);margin-left:calc(clamp(260px,36vw,480px) / -2);
   transform:translateX(calc(var(--o) * 78%)) translateZ(calc(var(--a) * -260px)) rotateY(calc(var(--o) * -28deg));
-  filter:blur(calc(var(--a) * 2.5px)) brightness(calc(1 - var(--a) * .45));opacity:calc(1.6 - var(--a) * .6);z-index:calc(10 - var(--a));
+  filter:blur(calc(var(--a) * 2.5px)) brightness(calc(1 - var(--a) * .62));opacity:calc(1.6 - var(--a) * .6);z-index:calc(10 - var(--a));
   transition:transform .7s cubic-bezier(.2,.7,.2,1),filter .7s,opacity .7s}
 .reel .tv.on .scr{box-shadow:0 0 0 3px #0a0a0a,0 0 60px rgba(255,179,138,.35)}
 .reel .tv:not(.on){cursor:pointer}
@@ -122,8 +123,10 @@ main > section{position:relative;padding:clamp(96px,14vh,140px) var(--gut);min-h
 .ctrl output{min-width:96px;color:var(--muted)}
 .ctrl output b{color:var(--ink);font-weight:500}
 .info{display:none;max-width:760px;margin:26px auto 0;scroll-margin-top:30vh}
-.info.on{display:block;animation:tune .5s}
-@keyframes tune{from{opacity:0;filter:blur(6px)}}
+.info.on{display:block}
+.info.on > *{animation:infoin .6s cubic-bezier(.2,.7,.2,1) both}
+.info.on > :nth-child(2){animation-delay:.06s}.info.on > :nth-child(3){animation-delay:.12s}.info.on > :nth-child(4){animation-delay:.18s}.info.on > :nth-child(5){animation-delay:.24s}
+@keyframes infoin{from{opacity:0;transform:translateY(16px);filter:blur(6px)}}
 .info h3{font:500 clamp(2rem,4vw,3rem)/1 var(--display);text-transform:uppercase}
 .badge{display:inline-block;vertical-align:middle;margin-left:12px;padding:5px 8px 4px;border:1px solid var(--accent);color:var(--accent);font:500 10px/1 var(--mono);letter-spacing:.12em}
 .info .sub{font:500 12px/1.5 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--glow);margin-top:10px}
@@ -168,6 +171,38 @@ main > section{position:relative;padding:clamp(96px,14vh,140px) var(--gut);min-h
 .big-tv .call::after{content:"_";animation:blink 1s steps(1) infinite}
 .foot{padding:28px var(--gut) 40px;border-top:1px solid var(--line);font:400 11px var(--mono);color:var(--dim);text-align:center;letter-spacing:.06em}
 
+
+/* === transisi === */
+:root{--noise:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+/* TV nyala: garis tipis melebar lalu layar terbuka, ditutup semut */
+.static{position:absolute;inset:-50%;z-index:2;pointer-events:none;opacity:0;background:var(--noise) 0 0/140px;filter:contrast(2.2) grayscale(1)}
+.tv.tune .scr img{animation:poweron .75s cubic-bezier(.2,.7,.2,1) backwards;animation-delay:var(--td,0s)}
+.tv.tune .static{animation:snow .7s steps(7) backwards;animation-delay:var(--td,0s)}
+@keyframes poweron{0%{transform:scale(.5,.006);filter:brightness(4)}35%{transform:scale(1,.006);filter:brightness(3)}100%{transform:none;filter:brightness(.92) contrast(1.04) saturate(.95)}}
+@keyframes snow{0%{opacity:.85;transform:translate(0,0)}25%{transform:translate(-12%,6%)}50%{opacity:.7;transform:translate(8%,-10%)}75%{opacity:.35;transform:translate(-6%,12%)}100%{opacity:0;transform:translate(10%,0)}}
+.big-tv .static{animation:flick 6s steps(1) infinite}
+@keyframes flick{0%,90%,100%{opacity:0}92%{opacity:.55}94%{opacity:.1}96%{opacity:.4}}
+/* hero masuk sekali saat load */
+.js [data-rise]{animation:rise 1s cubic-bezier(.2,.7,.2,1) both;animation-delay:var(--d,0s)}
+@keyframes rise{from{opacity:0;transform:translateY(34px);filter:blur(10px)}}
+/* TV di dinding melayang pelan */
+.wall .tv{animation:bob var(--t,7s) ease-in-out infinite alternate}
+@keyframes bob{to{translate:0 -14px}}
+@media (hover:none){.wall-in{animation:drift 10s ease-in-out infinite alternate}}
+@keyframes drift{from{transform:rotateY(-5deg) rotateX(2deg)}to{transform:rotateY(5deg) rotateX(-2deg)}}
+/* muncul saat discroll */
+.js [data-reveal]{opacity:0;transform:translateY(36px);filter:blur(6px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1),filter .9s;transition-delay:var(--d,0s)}
+.js .h[data-reveal]{clip-path:inset(0 0 100% 0);transition-property:opacity,transform,filter,clip-path}
+.js [data-reveal].in{opacity:1;transform:none;filter:none;clip-path:inset(0 0 -20% 0)}
+.js .big-tv[data-reveal]{transform:rotate(-2deg) translateY(36px) scale(.94)}
+.js .big-tv[data-reveal].in{transform:rotate(-2deg)}
+.log li::before{transition:background .4s .5s}
+.log li.in::before{background:var(--accent)}
+/* sapuan scanline saat pindah section lewat nav */
+.sweep{position:fixed;left:0;right:0;top:-30vh;height:30vh;z-index:54;pointer-events:none;opacity:0;
+  background:linear-gradient(transparent,rgba(255,91,58,.12) 60%,rgba(236,232,225,.35) 98%,transparent);mix-blend-mode:screen}
+.sweep.go{animation:sweep .7s cubic-bezier(.4,0,.2,1)}
+@keyframes sweep{0%{opacity:1;transform:translateY(0)}100%{opacity:1;transform:translateY(160vh)}}
 @media (max-width:900px){
   .journey,.end .wrap{grid-template-columns:1fr}
   .skills,.certs{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -179,13 +214,14 @@ main > section{position:relative;padding:clamp(96px,14vh,140px) var(--gut);min-h
   .nav{top:16px}.nav a{padding:9px 7px;font-size:10px}
   .skills{grid-template-columns:1fr}
   .certs{gap:16px}
-  .wall .tv{opacity:.45}
-  .reel{height:clamp(220px,62vw,300px)}
+  .wall .tv{opacity:.5}
+  .wall.focus .tv.on{opacity:.95}
+  .reel{height:calc(72vw * .76)}
   .reel .tv{width:72vw;margin-left:-36vw;transform:translateX(calc(var(--o) * 92%)) translateZ(calc(var(--a) * -200px)) rotateY(calc(var(--o) * -24deg))}
   .row .btn{flex:1;justify-content:center}
 }
 @media (prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation:none!important;transition:none!important}
+  .room::before,.room::after,.wall-in,.wall .tv,.sweep{animation:none!important}
   html{scroll-behavior:auto}
 }
 </style>
@@ -194,6 +230,7 @@ main > section{position:relative;padding:clamp(96px,14vh,140px) var(--gut);min-h
 <a class="skip" href="#proyek">Lewati ke proyek</a>
 <div class="room" aria-hidden="true"></div>
 <div class="grain" aria-hidden="true"></div>
+<div class="sweep" aria-hidden="true"></div>
 
 <div class="hud" aria-hidden="true">
   <span class="tl">Istu.A.B — Portofolio</span>
@@ -216,25 +253,25 @@ main > section{position:relative;padding:clamp(96px,14vh,140px) var(--gut);min-h
 <section class="hero" id="tentang" data-label="Tentang">
   <div class="wall" id="wall">
     <div class="wall-in">
-      <a class="tv far" href="#p-crypto" data-go="0" data-name="Crypto Risk" style="--w:clamp(150px,17vw,260px);--x:4%;--y:16%;--z:-180px;--r:18deg;--b:1.5px" aria-label="Lihat proyek Crypto Risk"><span class="scr"><img src="img/crypto-desktop.jpg" alt=""></span></a>
-      <a class="tv" href="#p-stokku" data-go="1" data-name="StokKu" style="--w:clamp(120px,13vw,200px);--x:10%;--y:62%;--z:-40px;--r:14deg" aria-label="Lihat proyek StokKu"><span class="scr"><img src="img/stokku-desktop.jpg" alt=""></span></a>
-      <a class="tv far" href="#p-duitku" data-go="2" data-name="Duitku" style="--w:clamp(110px,11vw,170px);--x:17%;--y:40%;--z:-320px;--r:8deg;--b:2.5px" aria-label="Lihat proyek Duitku"><span class="scr"><img src="img/duitku-desktop.jpg" alt=""></span></a>
-      <a class="tv" href="#p-blokblas" data-go="3" data-name="Blok Blas" style="--w:clamp(130px,14vw,210px);--x:79%;--y:12%;--z:-80px;--r:-16deg" aria-label="Lihat proyek Blok Blas"><span class="scr"><img src="img/blokblas-desktop.jpg" alt=""></span></a>
-      <a class="tv far" href="#p-sipanda" data-go="4" data-name="SIPANDA" style="--w:clamp(110px,11vw,170px);--x:72%;--y:38%;--z:-340px;--r:-8deg;--b:2.5px" aria-label="Lihat proyek SIPANDA"><span class="scr"><img src="img/sipanda-desktop.jpg" alt=""></span></a>
-      <a class="tv" href="#p-kasirku" data-go="5" data-name="KasirKu" style="--w:clamp(140px,16vw,240px);--x:78%;--y:60%;--z:-20px;--r:-18deg" aria-label="Lihat proyek KasirKu"><span class="scr"><img src="img/kasirku-desktop.jpg" alt=""></span></a>
-      <a class="tv far" href="#p-antresehat" data-go="6" data-name="AntreSehat" style="--w:clamp(110px,11vw,170px);--x:3%;--y:86%;--z:-260px;--r:-6deg;--b:2px" aria-label="Lihat proyek AntreSehat"><span class="scr"><img src="img/antresehat-desktop.jpg" alt=""></span></a>
+      <a class="tv far tune" href="#p-crypto" data-go="0" data-name="Crypto Risk" style="--td:0.35s;--t:7.5s;--w:clamp(150px,17vw,260px);--x:4%;--y:16%;--z:-180px;--r:18deg;--b:1.5px" aria-label="Lihat proyek Crypto Risk"><span class="scr"><i class="static"></i><img src="img/crypto-desktop.jpg" alt=""></span></a>
+      <a class="tv tune" href="#p-stokku" data-go="1" data-name="StokKu" style="--td:0.51s;--t:6s;--w:clamp(120px,13vw,200px);--x:10%;--y:62%;--z:-40px;--r:14deg" aria-label="Lihat proyek StokKu"><span class="scr"><i class="static"></i><img src="img/stokku-desktop.jpg" alt=""></span></a>
+      <a class="tv far tune" href="#p-duitku" data-go="2" data-name="Duitku" style="--td:0.67s;--t:8.5s;--w:clamp(110px,11vw,170px);--x:17%;--y:40%;--z:-320px;--r:8deg;--b:2.5px" aria-label="Lihat proyek Duitku"><span class="scr"><i class="static"></i><img src="img/duitku-desktop.jpg" alt=""></span></a>
+      <a class="tv tune" href="#p-blokblas" data-go="3" data-name="Blok Blas" style="--td:0.83s;--t:6.5s;--w:clamp(130px,14vw,210px);--x:79%;--y:12%;--z:-80px;--r:-16deg" aria-label="Lihat proyek Blok Blas"><span class="scr"><i class="static"></i><img src="img/blokblas-desktop.jpg" alt=""></span></a>
+      <a class="tv far tune" href="#p-sipanda" data-go="4" data-name="SIPANDA" style="--td:0.99s;--t:9s;--w:clamp(110px,11vw,170px);--x:72%;--y:38%;--z:-340px;--r:-8deg;--b:2.5px" aria-label="Lihat proyek SIPANDA"><span class="scr"><i class="static"></i><img src="img/sipanda-desktop.jpg" alt=""></span></a>
+      <a class="tv tune" href="#p-kasirku" data-go="5" data-name="KasirKu" style="--td:1.15s;--t:7s;--w:clamp(140px,16vw,240px);--x:78%;--y:60%;--z:-20px;--r:-18deg" aria-label="Lihat proyek KasirKu"><span class="scr"><i class="static"></i><img src="img/kasirku-desktop.jpg" alt=""></span></a>
+      <a class="tv far tune" href="#p-antresehat" data-go="6" data-name="AntreSehat" style="--td:1.31s;--t:8s;--w:clamp(110px,11vw,170px);--x:3%;--y:86%;--z:-260px;--r:-6deg;--b:2px" aria-label="Lihat proyek AntreSehat"><span class="scr"><i class="static"></i><img src="img/antresehat-desktop.jpg" alt=""></span></a>
     </div>
   </div>
   <div class="hero-copy">
-    <div class="tag">Web Developer</div>
-    <h1 class="h">Halo, saya<br><em>Istu</em></h1>
-    <span class="tv face" data-name="ISTU"><span class="scr"><img src="img/foto.jpg" alt="Foto Istu Amlu Baihaqqi"></span></span>
-    <p class="lead">Lulusan Teknik Informatika Universitas Bina Darma, Palembang. Saya membangun aplikasi web full-stack dari nol sampai online: merancang database, menulis backend dengan hak akses per role, lalu membuat tampilan yang rapi di laptop maupun HP. Pengalaman magang IT di dua dinas Pemprov Sumatera Selatan, dan tujuh proyek saya bisa langsung dicoba di bawah.</p>
-    <div class="row">
+    <div class="tag" data-rise>Web Developer</div>
+    <h1 class="h" data-rise style="--d:.12s">Halo, saya<br><em>Istu</em></h1>
+    <span class="tv face tune" data-name="ISTU" data-rise style="--d:.35s;--td:.55s"><span class="scr"><i class="static"></i><img src="img/foto.jpg" alt="Foto Istu Amlu Baihaqqi"></span></span>
+    <p class="lead" data-rise style="--d:.55s">Lulusan Teknik Informatika Universitas Bina Darma, Palembang. Saya membangun aplikasi web full-stack dari nol sampai online: merancang database, menulis backend dengan hak akses per role, lalu membuat tampilan yang rapi di laptop maupun HP. Pengalaman magang IT di dua dinas Pemprov Sumatera Selatan, dan tujuh proyek saya bisa langsung dicoba di bawah.</p>
+    <div class="row" data-rise style="--d:.7s">
       <a class="btn solid" href="#proyek">Lihat Proyek</a>
       <a class="btn" href="#kontak">Hubungi Saya</a>
     </div>
-    <div class="tools" aria-label="Tools yang saya kuasai">
+    <div class="tools" data-rise style="--d:.85s" aria-label="Tools yang saya kuasai">
       <img src="img/word.svg" alt="Microsoft Word" title="Microsoft Word">
       <img src="img/excel.svg" alt="Microsoft Excel" title="Microsoft Excel">
       <img src="img/powerpoint.svg" alt="Microsoft PowerPoint" title="Microsoft PowerPoint">
@@ -252,21 +289,21 @@ main > section{position:relative;padding:clamp(96px,14vh,140px) var(--gut);min-h
 <section id="perjalanan" data-label="Riwayat">
   <div class="wrap journey">
     <div>
-      <div class="tag">Riwayat</div>
-      <h2 class="h" style="font-size:clamp(2.2rem,4.6vw,4.4rem)">Pengalaman<br><span style="white-space:nowrap">&amp; Pendidikan</span></h2>
-      <p class="lead">Pengalaman kerja, pendidikan, dan proyek nyata yang membentuk cara saya bekerja.</p>
+      <div class="tag" data-reveal>Riwayat</div>
+      <h2 class="h" data-reveal style="--d:.08s;font-size:clamp(2.2rem,4.6vw,4.4rem)">Pengalaman<br><span style="white-space:nowrap">&amp; Pendidikan</span></h2>
+      <p class="lead" data-reveal style="--d:.16s">Pengalaman kerja, pendidikan, dan proyek nyata yang membentuk cara saya bekerja.</p>
     </div>
     <ul class="log">
-      <li><div class="when"><b>Jul 2025 – Jan 2026</b><span>Staf Magang IT &amp; Operasional</span></div>
+      <li data-reveal style="--d:0.08s"><div class="when"><b>Jul 2025 – Jan 2026</b><span>Staf Magang IT &amp; Operasional</span></div>
         <h3>Dinas Koperasi dan UKM Prov. Sumatera Selatan</h3>
         <p>Merawat komputer, printer, dan jaringan kantor, membantu pegawai saat ada kendala teknis, serta mengolah data dan dokumen administrasi dengan Word &amp; Excel.</p></li>
-      <li><div class="when"><b>Sep – Des 2025</b><span>Staf Magang IT · Satu Data Batch 1</span></div>
+      <li data-reveal style="--d:0.16s"><div class="when"><b>Sep – Des 2025</b><span>Staf Magang IT · Satu Data Batch 1</span></div>
         <h3>Diskominfo Prov. Sumatera Selatan</h3>
         <p>Membantu pengembangan Portal Satu Data: pengumpulan, analisis, dan visualisasi data lewat dashboard, infografis, dan metadata untuk OPD.</p></li>
-      <li><div class="when"><b>2022 – 2026</b><span>S1 Teknik Informatika</span></div>
+      <li data-reveal style="--d:0.24s"><div class="when"><b>2022 – 2026</b><span>S1 Teknik Informatika</span></div>
         <h3>Universitas Bina Darma</h3>
         <p>Sarjana Komputer (S.Kom). Tugas akhir: Sistem Penilaian Risiko Portofolio Wallet Cryptocurrency dengan Rule-Based Classification.</p></li>
-      <li><div class="when"><b>Proyek Instansi</b><span>Web Developer</span></div>
+      <li data-reveal style="--d:0.32s"><div class="when"><b>Proyek Instansi</b><span>Web Developer</span></div>
         <h3>Dispora Kota Palembang</h3>
         <p>Membangun SIPANDA dengan Laravel: antrean Priority Scheduling dan Decision Tree C4.5 untuk penilaian kondisi aset.</p></li>
     </ul>
@@ -276,18 +313,18 @@ main > section{position:relative;padding:clamp(96px,14vh,140px) var(--gut);min-h
 <!-- 3. PROYEK: reel TV, tengah = channel aktif -->
 <section class="cases" id="proyek" data-label="Proyek">
   <div class="wrap">
-    <div class="tag"><a href="https://github.com/istu2174" target="_blank" rel="noopener">7 proyek · 6 demo live · GitHub ↗</a></div>
-    <h2 class="h">Proyek</h2>
-    <div class="reel" id="reel">
-      <a class="tv" data-name="Crypto Risk" href="https://crypto-risk-assessment.vercel.app/" data-wake="https://crypto-risk-assessment.onrender.com/health" target="_blank" rel="noopener" aria-label="Buka demo Crypto Risk"><span class="scr"><img src="img/crypto-desktop.jpg" alt="Dashboard Crypto Risk" loading="lazy"></span></a>
-      <a class="tv" data-name="StokKu" href="https://stokku-kjxx.onrender.com" target="_blank" rel="noopener" aria-label="Buka demo StokKu"><span class="scr"><img src="img/stokku-desktop.jpg" alt="Dashboard StokKu" loading="lazy"></span></a>
-      <a class="tv" data-name="Duitku" href="https://istu2174.github.io/duitku-web-treking-keuangan-pribadi/" target="_blank" rel="noopener" aria-label="Buka demo Duitku"><span class="scr"><img src="img/duitku-desktop.jpg" alt="Dashboard Duitku" loading="lazy"></span></a>
-      <a class="tv" data-name="Blok Blas" href="https://istu2174.github.io/blok-blas/" target="_blank" rel="noopener" aria-label="Main Blok Blas"><span class="scr"><img src="img/blokblas-desktop.jpg" alt="Permainan Blok Blas" loading="lazy"></span></a>
-      <a class="tv" data-name="SIPANDA" href="https://github.com/istu2174/PinjamPakaiAset" target="_blank" rel="noopener" aria-label="Buka source SIPANDA"><span class="scr"><img src="img/sipanda-desktop.jpg" alt="Dashboard SIPANDA" loading="lazy"></span></a>
-      <a class="tv" data-name="KasirKu" href="go.html?app=kasirku" target="_blank" rel="noopener" aria-label="Buka demo KasirKu"><span class="scr"><img src="img/kasirku-desktop.jpg" alt="Halaman kasir KasirKu" loading="lazy"></span></a>
-      <a class="tv" data-name="AntreSehat" href="https://antresehat.vercel.app/" target="_blank" rel="noopener" aria-label="Buka demo AntreSehat"><span class="scr"><img src="img/antresehat-laporan.jpg" alt="Laporan kunjungan AntreSehat" loading="lazy"></span></a>
+    <div class="tag" data-reveal><a href="https://github.com/istu2174" target="_blank" rel="noopener">7 proyek · 6 demo live · GitHub ↗</a></div>
+    <h2 class="h" data-reveal style="--d:.08s">Proyek</h2>
+    <div class="reel" id="reel" data-reveal style="--d:.15s">
+      <a class="tv" data-name="Crypto Risk" href="https://crypto-risk-assessment.vercel.app/" data-wake="https://crypto-risk-assessment.onrender.com/health" target="_blank" rel="noopener" aria-label="Buka demo Crypto Risk"><span class="scr"><i class="static"></i><img src="img/crypto-desktop.jpg" alt="Dashboard Crypto Risk" loading="lazy"></span></a>
+      <a class="tv" data-name="StokKu" href="https://stokku-kjxx.onrender.com" target="_blank" rel="noopener" aria-label="Buka demo StokKu"><span class="scr"><i class="static"></i><img src="img/stokku-desktop.jpg" alt="Dashboard StokKu" loading="lazy"></span></a>
+      <a class="tv" data-name="Duitku" href="https://istu2174.github.io/duitku-web-treking-keuangan-pribadi/" target="_blank" rel="noopener" aria-label="Buka demo Duitku"><span class="scr"><i class="static"></i><img src="img/duitku-desktop.jpg" alt="Dashboard Duitku" loading="lazy"></span></a>
+      <a class="tv" data-name="Blok Blas" href="https://istu2174.github.io/blok-blas/" target="_blank" rel="noopener" aria-label="Main Blok Blas"><span class="scr"><i class="static"></i><img src="img/blokblas-desktop.jpg" alt="Permainan Blok Blas" loading="lazy"></span></a>
+      <a class="tv" data-name="SIPANDA" href="https://github.com/istu2174/PinjamPakaiAset" target="_blank" rel="noopener" aria-label="Buka source SIPANDA"><span class="scr"><i class="static"></i><img src="img/sipanda-desktop.jpg" alt="Dashboard SIPANDA" loading="lazy"></span></a>
+      <a class="tv" data-name="KasirKu" href="go.html?app=kasirku" target="_blank" rel="noopener" aria-label="Buka demo KasirKu"><span class="scr"><i class="static"></i><img src="img/kasirku-desktop.jpg" alt="Halaman kasir KasirKu" loading="lazy"></span></a>
+      <a class="tv" data-name="AntreSehat" href="https://antresehat.vercel.app/" target="_blank" rel="noopener" aria-label="Buka demo AntreSehat"><span class="scr"><i class="static"></i><img src="img/antresehat-laporan.jpg" alt="Laporan kunjungan AntreSehat" loading="lazy"></span></a>
     </div>
-    <div class="ctrl">
+    <div class="ctrl" data-reveal style="--d:.25s">
       <button type="button" id="prev" aria-label="Proyek sebelumnya">←</button>
       <output id="ch" aria-live="polite">CH <b>01</b> / 07</output>
       <button type="button" id="next" aria-label="Proyek berikutnya">→</button>
@@ -396,29 +433,29 @@ main > section{position:relative;padding:clamp(96px,14vh,140px) var(--gut);min-h
 <!-- 4. SKILL -->
 <section id="keahlian" data-label="Skill">
   <div class="wrap">
-    <div class="tag">Keahlian</div>
-    <h2 class="h">Yang Saya Kuasai</h2>
-    <p class="say">Saya merancang <b>database</b>, menulis <b>backend</b> yang menjaga hak akses, lalu membangun <b>tampilan</b> yang enak dipakai di laptop <b>dan HP</b>.</p>
+    <div class="tag" data-reveal>Keahlian</div>
+    <h2 class="h" data-reveal style="--d:.08s">Yang Saya Kuasai</h2>
+    <p class="say" data-reveal style="--d:.16s">Saya merancang <b>database</b>, menulis <b>backend</b> yang menjaga hak akses, lalu membangun <b>tampilan</b> yang enak dipakai di laptop <b>dan HP</b>.</p>
     <div class="skills">
-      <div><h3>Web Development</h3><ul>
+      <div data-reveal style="--d:0.08s"><h3>Web Development</h3><ul>
         <li>HTML, CSS, JavaScript <em>Advanced</em></li>
         <li>React · Vite · Tailwind <em>Upper Int.</em></li>
         <li>Node.js · Express <em>Upper Int.</em></li>
         <li>PHP · Laravel <em>Intermediate</em></li>
         <li>Python <em>Basic</em></li></ul></div>
-      <div><h3>Database &amp; Tools</h3><ul>
+      <div data-reveal style="--d:0.16s"><h3>Database &amp; Tools</h3><ul>
         <li>MySQL · PostgreSQL · SQLite <em>Intermediate</em></li>
         <li>Prisma · Supabase <em>Intermediate</em></li>
         <li>Git &amp; GitHub <em>Upper Int.</em></li>
         <li>Pages · Render · Vercel <em>Intermediate</em></li>
         <li>VS Code · XAMPP · Postman <em>Advanced</em></li></ul></div>
-      <div><h3>Microsoft Office</h3><ul>
+      <div data-reveal style="--d:0.24s"><h3>Microsoft Office</h3><ul>
         <li>Microsoft Word <em>Advanced</em></li>
         <li>Microsoft Excel <em>Advanced</em></li>
         <li>Microsoft PowerPoint <em>Advanced</em></li>
         <li>Google Workspace <em>Advanced</em></li></ul>
         <p class="note">Desktop Office Training: Word 100, PowerPoint 100, Excel 95 (A).</p></div>
-      <div><h3>Soft Skill &amp; Bahasa</h3><ul>
+      <div data-reveal style="--d:0.32s"><h3>Soft Skill &amp; Bahasa</h3><ul>
         <li>Problem solving &amp; analitis</li>
         <li>Komunikasi &amp; kerja tim</li>
         <li>Manajemen waktu</li>
@@ -432,16 +469,16 @@ main > section{position:relative;padding:clamp(96px,14vh,140px) var(--gut);min-h
 <!-- 5. SERTIFIKAT -->
 <section id="sertifikat" data-label="Sertifikat">
   <div class="wrap">
-    <div class="tag">7 sertifikat</div>
-    <h2 class="h">Sertifikat</h2>
+    <div class="tag" data-reveal>7 sertifikat</div>
+    <h2 class="h" data-reveal style="--d:.08s">Sertifikat</h2>
     <div class="certs">
-      <a class="cert" href="img/cert/office.jpg" target="_blank" rel="noopener"><div class="frame"><img src="img/cert/office.jpg" alt="Sertifikat Desktop Office Training" loading="lazy"></div><b>Desktop Office Training</b><span>Universitas Bina Darma · April 2026</span><em>Word 100 · PPT 100 · Excel 95</em></a>
-      <a class="cert" href="img/cert/satu-data.jpg" target="_blank" rel="noopener"><div class="frame"><img src="img/cert/satu-data.jpg" alt="Sertifikat Magang Satu Data" loading="lazy"></div><b>Magang Satu Data Batch 1</b><span>Diskominfo Prov. Sumatera Selatan · Sep–Des 2025</span></a>
-      <a class="cert" href="img/cert/revou.jpg" target="_blank" rel="noopener"><div class="frame"><img src="img/cert/revou.jpg" alt="Sertifikat RevoU Intro to Software Engineering" loading="lazy"></div><b>Intro to Software Engineering</b><span>RevoU Coding Camp · Oktober 2025</span></a>
-      <a class="cert" href="img/cert/cisco-srwe.jpg" target="_blank" rel="noopener"><div class="frame"><img src="img/cert/cisco-srwe.jpg" alt="Sertifikat CCNA Switching, Routing, and Wireless Essentials" loading="lazy"></div><b>CCNA: Switching, Routing &amp; Wireless</b><span>Cisco Networking Academy · Agustus 2025</span></a>
-      <a class="cert" href="https://www.dicoding.com/certificates/6RPNYJ99RZ2M" target="_blank" rel="noopener"><div class="frame"><img src="img/cert/dicoding.jpg" alt="Sertifikat Dicoding Belajar Dasar Pemrograman Web" loading="lazy"></div><b>Belajar Dasar Pemrograman Web</b><span>Dicoding Indonesia · November 2024</span><em>Terverifikasi ↗</em></a>
-      <a class="cert" href="img/cert/uiux.jpg" target="_blank" rel="noopener"><div class="frame"><img src="img/cert/uiux.jpg" alt="Sertifikat Harisenin Bootcamp UI/UX Design" loading="lazy"></div><b>UI/UX Design Bootcamp</b><span>Harisenin.com · 2024</span></a>
-      <a class="cert" href="img/cert/cisco-itn.jpg" target="_blank" rel="noopener"><div class="frame"><img src="img/cert/cisco-itn.jpg" alt="Sertifikat CCNAv7 Introduction to Networks" loading="lazy"></div><b>CCNAv7: Introduction to Networks</b><span>Cisco Networking Academy · September 2023</span></a>
+      <a class="cert" data-reveal style="--d:0.08s" href="img/cert/office.jpg" target="_blank" rel="noopener"><div class="frame"><img src="img/cert/office.jpg" alt="Sertifikat Desktop Office Training" loading="lazy"></div><b>Desktop Office Training</b><span>Universitas Bina Darma · April 2026</span><em>Word 100 · PPT 100 · Excel 95</em></a>
+      <a class="cert" data-reveal style="--d:0.16s" href="img/cert/satu-data.jpg" target="_blank" rel="noopener"><div class="frame"><img src="img/cert/satu-data.jpg" alt="Sertifikat Magang Satu Data" loading="lazy"></div><b>Magang Satu Data Batch 1</b><span>Diskominfo Prov. Sumatera Selatan · Sep–Des 2025</span></a>
+      <a class="cert" data-reveal style="--d:0.24s" href="img/cert/revou.jpg" target="_blank" rel="noopener"><div class="frame"><img src="img/cert/revou.jpg" alt="Sertifikat RevoU Intro to Software Engineering" loading="lazy"></div><b>Intro to Software Engineering</b><span>RevoU Coding Camp · Oktober 2025</span></a>
+      <a class="cert" data-reveal style="--d:0.32s" href="img/cert/cisco-srwe.jpg" target="_blank" rel="noopener"><div class="frame"><img src="img/cert/cisco-srwe.jpg" alt="Sertifikat CCNA Switching, Routing, and Wireless Essentials" loading="lazy"></div><b>CCNA: Switching, Routing &amp; Wireless</b><span>Cisco Networking Academy · Agustus 2025</span></a>
+      <a class="cert" data-reveal style="--d:0.40s" href="https://www.dicoding.com/certificates/6RPNYJ99RZ2M" target="_blank" rel="noopener"><div class="frame"><img src="img/cert/dicoding.jpg" alt="Sertifikat Dicoding Belajar Dasar Pemrograman Web" loading="lazy"></div><b>Belajar Dasar Pemrograman Web</b><span>Dicoding Indonesia · November 2024</span><em>Terverifikasi ↗</em></a>
+      <a class="cert" data-reveal style="--d:0.48s" href="img/cert/uiux.jpg" target="_blank" rel="noopener"><div class="frame"><img src="img/cert/uiux.jpg" alt="Sertifikat Harisenin Bootcamp UI/UX Design" loading="lazy"></div><b>UI/UX Design Bootcamp</b><span>Harisenin.com · 2024</span></a>
+      <a class="cert" data-reveal style="--d:0.56s" href="img/cert/cisco-itn.jpg" target="_blank" rel="noopener"><div class="frame"><img src="img/cert/cisco-itn.jpg" alt="Sertifikat CCNAv7 Introduction to Networks" loading="lazy"></div><b>CCNAv7: Introduction to Networks</b><span>Cisco Networking Academy · September 2023</span></a>
     </div>
   </div>
 </section>
@@ -450,17 +487,17 @@ main > section{position:relative;padding:clamp(96px,14vh,140px) var(--gut);min-h
 <section class="end" id="kontak" data-label="Kontak">
   <div class="wrap">
     <div>
-      <div class="tag">Kontak</div>
-      <h2 class="h">Punya <em>ide</em><br>proyek?</h2>
-      <p class="lead">Terbuka untuk kerja penuh waktu, magang, maupun freelance.</p>
-      <div class="links">
+      <div class="tag" data-reveal>Kontak</div>
+      <h2 class="h" data-reveal style="--d:.08s">Punya <em>ide</em><br>proyek?</h2>
+      <p class="lead" data-reveal style="--d:.16s">Terbuka untuk kerja penuh waktu, magang, maupun freelance.</p>
+      <div class="links" data-reveal style="--d:.24s">
         <a href="mailto:istuamlu.b@gmail.com"><svg><use href="#i-mail"/></svg>istuamlu.b@gmail.com</a>
         <a href="https://github.com/istu2174" target="_blank" rel="noopener"><svg><use href="#i-gh"/></svg>github.com/istu2174</a>
         <a href="https://maps.google.com/?q=Palembang" target="_blank" rel="noopener"><svg><use href="#i-pin"/></svg>Palembang, Indonesia</a>
         <!-- tambahin: LinkedIn / WhatsApp / Instagram di sini -->
       </div>
     </div>
-    <div class="tv big-tv" data-name="ISTU"><span class="scr"><a class="call" href="mailto:istuamlu.b@gmail.com">Hubungi Saya</a></span></div>
+    <div class="tv big-tv" data-name="ISTU" data-reveal style="--d:.2s"><span class="scr"><i class="static"></i><a class="call" href="mailto:istuamlu.b@gmail.com">Hubungi Saya</a></span></div>
   </div>
 </section>
 </main>
@@ -487,11 +524,38 @@ wall.querySelectorAll('.tv').forEach(tv => {
   tv.addEventListener('click', e => { e.preventDefault(); show(+tv.dataset.go, true); });
 });
 
+
+// TV nyala ulang (garis -> layar + semut)
+function tune(tv, delay = 0) {
+  tv.style.setProperty('--td', delay + 's');
+  tv.classList.remove('tune'); void tv.offsetWidth; tv.classList.add('tune');
+}
+// HP / layar sentuh: nggak ada hover, jadi fokus pindah sendiri antar TV
+if (matchMedia('(hover: none)').matches) {
+  let f = -1;
+  setInterval(() => {
+    const vis = [...wall.querySelectorAll('.tv')].filter(t => t.offsetParent);
+    if (!vis.length) return;
+    vis.forEach(t => t.classList.remove('on'));
+    f = (f + 1) % vis.length;
+    wall.classList.add('focus'); vis[f].classList.add('on'); tune(vis[f]);
+  }, 2600);
+}
+// muncul saat discroll (sekali)
+const rv = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); rv.unobserve(e.target); } }), {rootMargin: '0px 0px -12% 0px'});
+document.querySelectorAll('[data-reveal]').forEach(el => rv.observe(el));
+// sapuan scanline saat klik nav
+const sweep = document.querySelector('.sweep');
+document.querySelectorAll('.nav a, a.btn[href^="#"]').forEach(a => a.addEventListener('click', () => {
+  sweep.classList.remove('go'); void sweep.offsetWidth; sweep.classList.add('go');
+}));
+
 // Reel proyek
 const tvs = [...document.querySelectorAll('#reel .tv')];
 const infos = [...document.querySelectorAll('.info')];
 const ch = document.getElementById('ch');
 let cur = 0;
+let first = true;
 function show(i, jump) {
   cur = (i + tvs.length) % tvs.length;
   tvs.forEach((tv, k) => {
@@ -502,6 +566,7 @@ function show(i, jump) {
     tv.tabIndex = o === 0 ? 0 : -1;
     tv.setAttribute('aria-hidden', o !== 0);
   });
+  if (!first) tune(tvs[cur]);
   infos.forEach((el, k) => el.classList.toggle('on', k === cur));
   ch.innerHTML = `CH <b>${String(cur + 1).padStart(2, '0')}</b> / ${String(tvs.length).padStart(2, '0')}`;
   if (jump) infos[cur].scrollIntoView({behavior: calm ? 'auto' : 'smooth', block: 'center'});
@@ -515,7 +580,7 @@ reel.addEventListener('touchstart', e => sx = e.touches[0].clientX, {passive: tr
 reel.addEventListener('touchend', e => { if (sx === null) return; const d = e.changedTouches[0].clientX - sx; if (Math.abs(d) > 40) show(cur + (d < 0 ? 1 : -1)); sx = null; });
 const fromHash = () => { const k = infos.findIndex(el => '#' + el.id === location.hash); if (k >= 0) show(k, true); };
 addEventListener('hashchange', fromHash);
-show(0); fromHash();
+show(0); first = false; fromHash();
 
 // HUD bawah + nav aktif ikut section yang terlihat
 const secs = [...document.querySelectorAll('main > section')];
