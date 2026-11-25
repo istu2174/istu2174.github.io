@@ -81,10 +81,11 @@ h1 span{display:block;color:var(--muted);font-weight:500;font-size:.48em;letter-
 .tools img:hover{filter:none;transform:translateY(-2px)}
 
 /* proyek */
-.projects{display:grid;gap:28px}
+.projects{display:grid;grid-template-columns:minmax(0,1fr);gap:28px}
 .project{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:clamp(24px,4vw,56px);align-items:center;padding:28px;border:1px solid var(--line);border-radius:18px;background:#fff;transition:box-shadow .25s,border-color .25s}
 .project:hover{border-color:#cbd5e1;box-shadow:0 18px 40px -24px rgba(15,23,42,.25)}
-.project:nth-child(even) .shot{order:2}
+.project:nth-child(even) .media{order:2}
+.media{position:relative;padding:0 6% 6% 0}
 .shot{display:block;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--soft)}
 .shot .bar{display:flex;align-items:center;gap:10px;height:34px;padding:0 12px;border-bottom:1px solid var(--line);background:#fff;font-size:.78rem;color:var(--muted)}
 .shot .bar::before{content:"";width:34px;height:8px;flex:none;background:radial-gradient(circle,#e2e8f0 3.5px,transparent 4px) 0 0/13px 8px repeat-x}
@@ -92,6 +93,11 @@ h1 span{display:block;color:var(--muted);font-weight:500;font-size:.48em;letter-
 .shot .img{overflow:hidden;aspect-ratio:16/10}
 .shot img{width:100%;height:100%;object-fit:cover;object-position:top;transition:transform .5s ease}
 .project:hover .shot img{transform:scale(1.02)}
+/* versi HP: menempel di pojok kanan bawah screenshot desktop */
+.phone{position:absolute;right:0;bottom:0;width:23%;padding:5px;border-radius:22px;background:#0f172a;box-shadow:0 20px 40px -18px rgba(15,23,42,.55),0 0 0 1px rgba(15,23,42,.08);transition:transform .35s ease}
+.phone img{width:100%;aspect-ratio:9/19.5;object-fit:cover;object-position:top;border-radius:17px;background:#fff}
+.phone::before{content:"";position:absolute;top:11px;left:50%;width:28%;height:7px;transform:translateX(-50%);border-radius:9px;background:#0f172a;z-index:1}
+.project:hover .phone{transform:translateY(-4px)}
 .meta{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:.84rem;color:var(--muted)}
 .tag{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:99px;font-size:.78rem;font-weight:500}
 .tag.live{background:#f0fdf4;color:#15803d}
@@ -149,13 +155,13 @@ h1 span{display:block;color:var(--muted);font-weight:500;font-size:.48em;letter-
 .foot a:hover{color:var(--ink)}
 
 /* muncul pelan saat discroll */
-.js .reveal{opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .5s ease}
+.js .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1);transition-delay:var(--d,0s)}
 .js .reveal.in{opacity:1;transform:none}
 
 @media (max-width:960px){
   .skills,.certs{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .project{grid-template-columns:1fr}
-  .project:nth-child(even) .shot{order:0}
+  .project{grid-template-columns:minmax(0,1fr)}
+  .project:nth-child(even) .media{order:0}
 }
 @media (max-width:820px){
   .burger{display:inline-flex}
@@ -177,6 +183,9 @@ h1 span{display:block;color:var(--muted);font-weight:500;font-size:.48em;letter-
 @media (max-width:520px){
   .skills,.certs{grid-template-columns:1fr}
   .project{padding:16px}
+  .phone{width:26%;padding:4px;border-radius:16px}
+  .phone img{border-radius:12px}
+  .phone::before{top:8px;height:5px}
   .facts{grid-template-columns:repeat(3,1fr);gap:12px}
   .facts b{font-size:1.4rem}
   .cta .btn,.links .btn{flex:1}
@@ -218,19 +227,19 @@ h1 span{display:block;color:var(--muted);font-weight:500;font-size:.48em;letter-
 <section class="hero" id="tentang">
   <div class="wrap">
     <div>
-      <span class="status"><i></i>Terbuka untuk kerja penuh waktu, magang, dan freelance</span>
-      <h1>Istu Amlu Baihaqqi<span>Web Developer full-stack · Palembang</span></h1>
-      <p class="lead">Lulusan Teknik Informatika Universitas Bina Darma. Saya membangun aplikasi web dari nol sampai online: merancang database, menulis backend dengan hak akses per role, lalu membuat tampilan yang rapi di laptop maupun HP.</p>
-      <div class="cta">
+      <span class="status reveal" style="--d:0s"><i></i>Terbuka untuk kerja penuh waktu, magang, dan freelance</span>
+      <h1 class="reveal" style="--d:.08s">Istu Amlu Baihaqqi<span>Web Developer full-stack · Palembang</span></h1>
+      <p class="lead reveal" style="--d:.16s">Lulusan Teknik Informatika Universitas Bina Darma. Saya membangun aplikasi web dari nol sampai online: merancang database, menulis backend dengan hak akses per role, lalu membuat tampilan yang rapi di laptop maupun HP.</p>
+      <div class="cta reveal" style="--d:.24s">
         <a class="btn primary" href="#proyek">Lihat proyek</a>
         <a class="btn" href="mailto:istuamlu.b@gmail.com"><svg><use href="#i-mail"/></svg>Kirim email</a>
       </div>
-      <div class="facts">
+      <div class="facts reveal" style="--d:.32s">
         <div><b>7</b><span>proyek web</span></div>
         <div><b>6</b><span>demo bisa dicoba</span></div>
         <div><b>2</b><span>magang IT instansi</span></div>
       </div>
-      <div class="tools" aria-label="Tools yang saya pakai">
+      <div class="tools reveal" style="--d:.4s" aria-label="Tools yang saya pakai">
         <small>Tools:</small>
         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/react/react-original.svg" alt="React" title="React">
         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/nextjs/nextjs-original.svg" alt="Next.js" title="Next.js">
@@ -245,7 +254,7 @@ h1 span{display:block;color:var(--muted);font-weight:500;font-size:.48em;letter-
         <img src="img/powerpoint.svg" alt="Microsoft PowerPoint" title="Microsoft PowerPoint">
       </div>
     </div>
-    <figure class="portrait">
+    <figure class="portrait reveal" style="--d:.12s">
       <img src="img/foto.jpg" alt="Foto Istu Amlu Baihaqqi" width="400" height="500">
       <figcaption><svg><use href="#i-pin"/></svg>Palembang, Indonesia</figcaption>
     </figure>
@@ -262,10 +271,13 @@ h1 span{display:block;color:var(--muted);font-weight:500;font-size:.48em;letter-
     <div class="projects">
 
       <article class="project reveal" id="p-crypto">
+        <div class="media">
         <a class="shot" href="https://crypto-risk-assessment.vercel.app/" data-wake="https://crypto-risk-assessment.onrender.com/health" target="_blank" rel="noopener" aria-label="Buka demo Crypto Risk">
           <div class="bar"><span>crypto-risk-assessment.vercel.app</span></div>
           <div class="img"><img src="img/crypto-desktop.jpg" alt="Dashboard Crypto Risk" loading="lazy" width="1600" height="1000"></div>
         </a>
+        <div class="phone" aria-hidden="true"><img src="img/crypto-hp.jpg" alt="" loading="lazy"></div>
+        </div>
         <div>
           <div class="meta"><span class="tag live">Demo live</span>Skripsi</div>
           <h3>Crypto Risk</h3>
@@ -284,10 +296,13 @@ h1 span{display:block;color:var(--muted);font-weight:500;font-size:.48em;letter-
       </article>
 
       <article class="project reveal" id="p-antresehat">
+        <div class="media">
         <a class="shot" href="https://antresehat.vercel.app/" target="_blank" rel="noopener" aria-label="Buka demo AntreSehat">
           <div class="bar"><span>antresehat.vercel.app</span></div>
           <div class="img"><img src="img/antresehat-laporan.jpg" alt="Laporan kunjungan AntreSehat" loading="lazy" width="1600" height="1000"></div>
         </a>
+        <div class="phone" aria-hidden="true"><img src="img/antresehat-hp.jpg" alt="" loading="lazy"></div>
+        </div>
         <div>
           <div class="meta"><span class="tag live">Demo live</span>Kesehatan · Realtime</div>
           <h3>AntreSehat</h3>
@@ -306,10 +321,13 @@ h1 span{display:block;color:var(--muted);font-weight:500;font-size:.48em;letter-
       </article>
 
       <article class="project reveal" id="p-kasirku">
+        <div class="media">
         <a class="shot" href="go.html?app=kasirku" target="_blank" rel="noopener" aria-label="Buka demo KasirKu">
           <div class="bar"><span>kasirku · point of sale</span></div>
           <div class="img"><img src="img/kasirku-desktop.jpg" alt="Halaman kasir KasirKu" loading="lazy"></div>
         </a>
+        <div class="phone" aria-hidden="true"><img src="img/kasirku-hp.jpg" alt="" loading="lazy"></div>
+        </div>
         <div>
           <div class="meta"><span class="tag live">Demo live</span>Point of Sale</div>
           <h3>KasirKu</h3>
@@ -328,10 +346,13 @@ h1 span{display:block;color:var(--muted);font-weight:500;font-size:.48em;letter-
       </article>
 
       <article class="project reveal" id="p-stokku">
+        <div class="media">
         <a class="shot" href="https://stokku-kjxx.onrender.com" target="_blank" rel="noopener" aria-label="Buka demo StokKu">
           <div class="bar"><span>stokku-kjxx.onrender.com</span></div>
           <div class="img"><img src="img/stokku-desktop.jpg" alt="Dashboard StokKu" loading="lazy"></div>
         </a>
+        <div class="phone" aria-hidden="true"><img src="img/stokku-hp.jpg" alt="" loading="lazy"></div>
+        </div>
         <div>
           <div class="meta"><span class="tag live">Demo live</span>Inventory</div>
           <h3>StokKu</h3>
@@ -350,10 +371,13 @@ h1 span{display:block;color:var(--muted);font-weight:500;font-size:.48em;letter-
       </article>
 
       <article class="project reveal" id="p-duitku">
+        <div class="media">
         <a class="shot" href="https://istu2174.github.io/duitku-web-treking-keuangan-pribadi/" target="_blank" rel="noopener" aria-label="Buka demo Duitku">
           <div class="bar"><span>istu2174.github.io/duitku</span></div>
           <div class="img"><img src="img/duitku-desktop.jpg" alt="Dashboard Duitku" loading="lazy" width="1600" height="1000"></div>
         </a>
+        <div class="phone" aria-hidden="true"><img src="img/duitku-hp.jpg" alt="" loading="lazy"></div>
+        </div>
         <div>
           <div class="meta"><span class="tag live">Demo live</span>Keuangan pribadi</div>
           <h3>Duitku</h3>
@@ -372,10 +396,13 @@ h1 span{display:block;color:var(--muted);font-weight:500;font-size:.48em;letter-
       </article>
 
       <article class="project reveal" id="p-sipanda">
+        <div class="media">
         <a class="shot" href="https://github.com/istu2174/PinjamPakaiAset" target="_blank" rel="noopener" aria-label="Buka kode sumber SIPANDA">
           <div class="bar"><span>sipanda · dispora kota palembang</span></div>
           <div class="img"><img src="img/sipanda-desktop.jpg" alt="Dashboard SIPANDA" loading="lazy"></div>
         </a>
+        <div class="phone" aria-hidden="true"><img src="img/sipanda-hp.jpg" alt="" loading="lazy"></div>
+        </div>
         <div>
           <div class="meta"><span class="tag src">Proyek instansi</span>Dispora Kota Palembang</div>
           <h3>SIPANDA</h3>
@@ -393,10 +420,13 @@ h1 span{display:block;color:var(--muted);font-weight:500;font-size:.48em;letter-
       </article>
 
       <article class="project reveal" id="p-blokblas">
+        <div class="media">
         <a class="shot" href="https://istu2174.github.io/blok-blas/" target="_blank" rel="noopener" aria-label="Main Blok Blas">
           <div class="bar"><span>istu2174.github.io/blok-blas</span></div>
           <div class="img"><img src="img/blokblas-desktop.jpg" alt="Permainan Blok Blas" loading="lazy" width="1600" height="1000"></div>
         </a>
+        <div class="phone" aria-hidden="true"><img src="img/blokblas-hp.jpg" alt="" loading="lazy"></div>
+        </div>
         <div>
           <div class="meta"><span class="tag live">Demo live</span>Game · PWA</div>
           <h3>Blok Blas</h3>
@@ -425,10 +455,10 @@ h1 span{display:block;color:var(--muted);font-weight:500;font-size:.48em;letter-
       <h2>Riwayat kerja dan studi</h2>
     </div>
     <div class="timeline">
-      <div class="row reveal"><time>Jul 2025 – Jan 2026</time><div><h3>Staf Magang IT &amp; Operasional Kantor</h3><div class="org">Dinas Koperasi dan UKM Provinsi Sumatera Selatan</div><p>Merawat komputer, printer, dan jaringan kantor, membantu pegawai saat ada kendala teknis, serta mengolah data dan dokumen administrasi dengan Word dan Excel.</p></div></div>
-      <div class="row reveal"><time>Sep – Des 2025</time><div><h3>Staf Magang IT · Satu Data Batch 1</h3><div class="org">Diskominfo Provinsi Sumatera Selatan</div><p>Membantu pengembangan Portal Satu Data: pengumpulan, analisis, dan visualisasi data lewat dashboard, infografis, dan metadata untuk OPD.</p></div></div>
-      <div class="row reveal"><time>Proyek instansi</time><div><h3>Web Developer</h3><div class="org">Dispora Kota Palembang</div><p>Membangun SIPANDA dengan Laravel, termasuk antrean Priority Scheduling dan Decision Tree C4.5 untuk penilaian kondisi aset.</p></div></div>
-      <div class="row reveal"><time>2022 – 2026</time><div><h3>S1 Teknik Informatika</h3><div class="org">Universitas Bina Darma, Palembang</div><p>Sarjana Komputer. Tugas akhir: Sistem Penilaian Risiko Portofolio Wallet Cryptocurrency dengan Rule-Based Classification.</p></div></div>
+      <div class="row reveal" style="--d:0.00s"><time>Jul 2025 – Jan 2026</time><div><h3>Staf Magang IT &amp; Operasional Kantor</h3><div class="org">Dinas Koperasi dan UKM Provinsi Sumatera Selatan</div><p>Merawat komputer, printer, dan jaringan kantor, membantu pegawai saat ada kendala teknis, serta mengolah data dan dokumen administrasi dengan Word dan Excel.</p></div></div>
+      <div class="row reveal" style="--d:0.08s"><time>Sep – Des 2025</time><div><h3>Staf Magang IT · Satu Data Batch 1</h3><div class="org">Diskominfo Provinsi Sumatera Selatan</div><p>Membantu pengembangan Portal Satu Data: pengumpulan, analisis, dan visualisasi data lewat dashboard, infografis, dan metadata untuk OPD.</p></div></div>
+      <div class="row reveal" style="--d:0.16s"><time>Proyek instansi</time><div><h3>Web Developer</h3><div class="org">Dispora Kota Palembang</div><p>Membangun SIPANDA dengan Laravel, termasuk antrean Priority Scheduling dan Decision Tree C4.5 untuk penilaian kondisi aset.</p></div></div>
+      <div class="row reveal" style="--d:0.24s"><time>2022 – 2026</time><div><h3>S1 Teknik Informatika</h3><div class="org">Universitas Bina Darma, Palembang</div><p>Sarjana Komputer. Tugas akhir: Sistem Penilaian Risiko Portofolio Wallet Cryptocurrency dengan Rule-Based Classification.</p></div></div>
     </div>
   </div>
 </section>
@@ -440,26 +470,26 @@ h1 span{display:block;color:var(--muted);font-weight:500;font-size:.48em;letter-
       <h2>Teknologi yang saya pakai</h2>
     </div>
     <div class="skills">
-      <div class="skill reveal"><h3>Web Development</h3><ul>
+      <div class="skill reveal" style="--d:0.00s"><h3>Web Development</h3><ul>
         <li>HTML, CSS, JavaScript <em>Advanced</em></li>
         <li>React · Vite · Tailwind <em>Upper Int.</em></li>
         <li>Node.js · Express <em>Upper Int.</em></li>
         <li>Next.js · TypeScript <em>Intermediate</em></li>
         <li>PHP · Laravel <em>Intermediate</em></li>
         <li>Python <em>Basic</em></li></ul></div>
-      <div class="skill reveal"><h3>Database &amp; Tools</h3><ul>
+      <div class="skill reveal" style="--d:0.08s"><h3>Database &amp; Tools</h3><ul>
         <li>MySQL · PostgreSQL · SQLite <em>Intermediate</em></li>
         <li>Prisma · Supabase <em>Intermediate</em></li>
         <li>Git &amp; GitHub <em>Upper Int.</em></li>
         <li>Vercel · Render · Pages <em>Intermediate</em></li>
         <li>VS Code · Postman · XAMPP <em>Advanced</em></li></ul></div>
-      <div class="skill reveal"><h3>Microsoft Office</h3><ul>
+      <div class="skill reveal" style="--d:0.16s"><h3>Microsoft Office</h3><ul>
         <li>Microsoft Word <em>Advanced</em></li>
         <li>Microsoft Excel <em>Advanced</em></li>
         <li>Microsoft PowerPoint <em>Advanced</em></li>
         <li>Google Workspace <em>Advanced</em></li></ul>
         <p class="note">Desktop Office Training: Word 100, PowerPoint 100, Excel 95.</p></div>
-      <div class="skill reveal"><h3>Soft Skill &amp; Bahasa</h3><ul>
+      <div class="skill reveal" style="--d:0.24s"><h3>Soft Skill &amp; Bahasa</h3><ul>
         <li>Problem solving &amp; analitis</li>
         <li>Komunikasi &amp; kerja tim</li>
         <li>Manajemen waktu</li>
@@ -477,13 +507,13 @@ h1 span{display:block;color:var(--muted);font-weight:500;font-size:.48em;letter-
       <h2>Pelatihan dan sertifikasi</h2>
     </div>
     <div class="certs">
-      <a class="cert reveal" href="img/cert/office.jpg" target="_blank" rel="noopener"><div class="thumb"><img src="img/cert/office.jpg" alt="Sertifikat Desktop Office Training" loading="lazy"></div><div class="txt"><b>Desktop Office Training</b><span>Universitas Bina Darma · Apr 2026</span><em>Word 100 · PPT 100 · Excel 95</em></div></a>
-      <a class="cert reveal" href="img/cert/satu-data.jpg" target="_blank" rel="noopener"><div class="thumb"><img src="img/cert/satu-data.jpg" alt="Sertifikat Magang Satu Data" loading="lazy"></div><div class="txt"><b>Magang Satu Data Batch 1</b><span>Diskominfo Prov. Sumatera Selatan · 2025</span></div></a>
-      <a class="cert reveal" href="img/cert/revou.jpg" target="_blank" rel="noopener"><div class="thumb"><img src="img/cert/revou.jpg" alt="Sertifikat RevoU Intro to Software Engineering" loading="lazy"></div><div class="txt"><b>Intro to Software Engineering</b><span>RevoU Coding Camp · Okt 2025</span></div></a>
-      <a class="cert reveal" href="img/cert/cisco-srwe.jpg" target="_blank" rel="noopener"><div class="thumb"><img src="img/cert/cisco-srwe.jpg" alt="Sertifikat CCNA Switching, Routing, and Wireless Essentials" loading="lazy"></div><div class="txt"><b>CCNA: Switching, Routing &amp; Wireless Essentials</b><span>Cisco Networking Academy · Agu 2025</span></div></a>
-      <a class="cert reveal" href="https://www.dicoding.com/certificates/6RPNYJ99RZ2M" target="_blank" rel="noopener"><div class="thumb"><img src="img/cert/dicoding.jpg" alt="Sertifikat Dicoding Belajar Dasar Pemrograman Web" loading="lazy"></div><div class="txt"><b>Belajar Dasar Pemrograman Web</b><span>Dicoding Indonesia · Nov 2024</span><em>Terverifikasi ↗</em></div></a>
-      <a class="cert reveal" href="img/cert/uiux.jpg" target="_blank" rel="noopener"><div class="thumb"><img src="img/cert/uiux.jpg" alt="Sertifikat Harisenin Bootcamp UI/UX Design" loading="lazy"></div><div class="txt"><b>UI/UX Design Bootcamp</b><span>Harisenin.com · 2024</span></div></a>
-      <a class="cert reveal" href="img/cert/cisco-itn.jpg" target="_blank" rel="noopener"><div class="thumb"><img src="img/cert/cisco-itn.jpg" alt="Sertifikat CCNAv7 Introduction to Networks" loading="lazy"></div><div class="txt"><b>CCNAv7: Introduction to Networks</b><span>Cisco Networking Academy · Sep 2023</span></div></a>
+      <a class="cert reveal" style="--d:0.00s" href="img/cert/office.jpg" target="_blank" rel="noopener"><div class="thumb"><img src="img/cert/office.jpg" alt="Sertifikat Desktop Office Training" loading="lazy"></div><div class="txt"><b>Desktop Office Training</b><span>Universitas Bina Darma · Apr 2026</span><em>Word 100 · PPT 100 · Excel 95</em></div></a>
+      <a class="cert reveal" style="--d:0.08s" href="img/cert/satu-data.jpg" target="_blank" rel="noopener"><div class="thumb"><img src="img/cert/satu-data.jpg" alt="Sertifikat Magang Satu Data" loading="lazy"></div><div class="txt"><b>Magang Satu Data Batch 1</b><span>Diskominfo Prov. Sumatera Selatan · 2025</span></div></a>
+      <a class="cert reveal" style="--d:0.16s" href="img/cert/revou.jpg" target="_blank" rel="noopener"><div class="thumb"><img src="img/cert/revou.jpg" alt="Sertifikat RevoU Intro to Software Engineering" loading="lazy"></div><div class="txt"><b>Intro to Software Engineering</b><span>RevoU Coding Camp · Okt 2025</span></div></a>
+      <a class="cert reveal" style="--d:0.24s" href="img/cert/cisco-srwe.jpg" target="_blank" rel="noopener"><div class="thumb"><img src="img/cert/cisco-srwe.jpg" alt="Sertifikat CCNA Switching, Routing, and Wireless Essentials" loading="lazy"></div><div class="txt"><b>CCNA: Switching, Routing &amp; Wireless Essentials</b><span>Cisco Networking Academy · Agu 2025</span></div></a>
+      <a class="cert reveal" style="--d:0.00s" href="https://www.dicoding.com/certificates/6RPNYJ99RZ2M" target="_blank" rel="noopener"><div class="thumb"><img src="img/cert/dicoding.jpg" alt="Sertifikat Dicoding Belajar Dasar Pemrograman Web" loading="lazy"></div><div class="txt"><b>Belajar Dasar Pemrograman Web</b><span>Dicoding Indonesia · Nov 2024</span><em>Terverifikasi ↗</em></div></a>
+      <a class="cert reveal" style="--d:0.08s" href="img/cert/uiux.jpg" target="_blank" rel="noopener"><div class="thumb"><img src="img/cert/uiux.jpg" alt="Sertifikat Harisenin Bootcamp UI/UX Design" loading="lazy"></div><div class="txt"><b>UI/UX Design Bootcamp</b><span>Harisenin.com · 2024</span></div></a>
+      <a class="cert reveal" style="--d:0.16s" href="img/cert/cisco-itn.jpg" target="_blank" rel="noopener"><div class="thumb"><img src="img/cert/cisco-itn.jpg" alt="Sertifikat CCNAv7 Introduction to Networks" loading="lazy"></div><div class="txt"><b>CCNAv7: Introduction to Networks</b><span>Cisco Networking Academy · Sep 2023</span></div></a>
     </div>
   </div>
 </section>
@@ -527,8 +557,8 @@ const setMenu = open => {
 burger.addEventListener('click', () => setMenu(!menu.classList.contains('open')));
 menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
 
-// muncul pelan saat masuk layar (sekali)
-const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), {rootMargin: '0px 0px -8% 0px'});
+// muncul pelan tiap masuk layar (scroll naik/turun)
+const io = new IntersectionObserver(es => es.forEach(e => e.target.classList.toggle('in', e.isIntersecting)), {threshold: 0});
 document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
 // Server gratis Render tidur kalau sepi: bangunin di belakang layar begitu portofolio dibuka,
