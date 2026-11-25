@@ -95,8 +95,9 @@ h1 span{display:block;color:var(--muted);font-weight:500;font-size:.48em;letter-
 .project:hover .shot img{transform:scale(1.02)}
 /* versi HP: menempel di pojok kanan bawah screenshot desktop */
 .phone{position:absolute;right:0;bottom:0;width:23%;padding:5px;border-radius:22px;background:#0f172a;box-shadow:0 20px 40px -18px rgba(15,23,42,.55),0 0 0 1px rgba(15,23,42,.08);transition:transform .35s ease}
-.phone img{width:100%;aspect-ratio:9/19.5;object-fit:cover;object-position:top;border-radius:17px;background:#fff}
-.phone::before{content:"";position:absolute;top:11px;left:50%;width:28%;height:7px;transform:translateX(-50%);border-radius:9px;background:#0f172a;z-index:1}
+/* strip status bar warna app di atas screenshot, island duduk di situ, bukan nutup UI */
+.phone img{display:block;width:100%;aspect-ratio:9/19.5;box-sizing:border-box;padding-top:14%;object-fit:cover;object-position:top;border-radius:17px;background:var(--sb,#fff);box-shadow:inset 0 0 0 1px rgba(15,23,42,.06)}
+.phone::before{content:"";position:absolute;top:calc(5px + 2.6%);left:50%;width:28%;height:3.6%;max-height:9px;transform:translateX(-50%);border-radius:9px;background:#0f172a;z-index:1}
 .project:hover .phone{transform:translateY(-4px)}
 .meta{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:.84rem;color:var(--muted)}
 .tag{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:99px;font-size:.78rem;font-weight:500}
@@ -185,7 +186,7 @@ h1 span{display:block;color:var(--muted);font-weight:500;font-size:.48em;letter-
   .project{padding:16px}
   .phone{width:26%;padding:4px;border-radius:16px}
   .phone img{border-radius:12px}
-  .phone::before{top:8px;height:5px}
+  .phone::before{top:calc(4px + 2.6%)}
   .facts{grid-template-columns:repeat(3,1fr);gap:12px}
   .facts b{font-size:1.4rem}
   .cta .btn,.links .btn{flex:1}
@@ -276,7 +277,7 @@ h1 span{display:block;color:var(--muted);font-weight:500;font-size:.48em;letter-
           <div class="bar"><span>crypto-risk-assessment.vercel.app</span></div>
           <div class="img"><img src="img/crypto-desktop.jpg" alt="Dashboard Crypto Risk" loading="lazy" width="1600" height="1000"></div>
         </a>
-        <div class="phone" aria-hidden="true"><img src="img/crypto-hp.jpg" alt="" loading="lazy"></div>
+        <div class="phone" aria-hidden="true" style="--sb:#ffffff"><img src="img/crypto-hp.jpg" alt="" loading="lazy"></div>
         </div>
         <div>
           <div class="meta"><span class="tag live">Demo live</span>Skripsi</div>
@@ -301,7 +302,7 @@ h1 span{display:block;color:var(--muted);font-weight:500;font-size:.48em;letter-
           <div class="bar"><span>antresehat.vercel.app</span></div>
           <div class="img"><img src="img/antresehat-laporan.jpg" alt="Laporan kunjungan AntreSehat" loading="lazy" width="1600" height="1000"></div>
         </a>
-        <div class="phone" aria-hidden="true"><img src="img/antresehat-hp.jpg" alt="" loading="lazy"></div>
+        <div class="phone" aria-hidden="true" style="--sb:#f0f1f3"><img src="img/antresehat-hp.jpg" alt="" loading="lazy"></div>
         </div>
         <div>
           <div class="meta"><span class="tag live">Demo live</span>Kesehatan · Realtime</div>
@@ -326,7 +327,7 @@ h1 span{display:block;color:var(--muted);font-weight:500;font-size:.48em;letter-
           <div class="bar"><span>kasirku · point of sale</span></div>
           <div class="img"><img src="img/kasirku-desktop.jpg" alt="Halaman kasir KasirKu" loading="lazy"></div>
         </a>
-        <div class="phone" aria-hidden="true"><img src="img/kasirku-hp.jpg" alt="" loading="lazy"></div>
+        <div class="phone" aria-hidden="true" style="--sb:#fcfcfc"><img src="img/kasirku-hp.jpg" alt="" loading="lazy"></div>
         </div>
         <div>
           <div class="meta"><span class="tag live">Demo live</span>Point of Sale</div>
@@ -351,7 +352,7 @@ h1 span{display:block;color:var(--muted);font-weight:500;font-size:.48em;letter-
           <div class="bar"><span>stokku-kjxx.onrender.com</span></div>
           <div class="img"><img src="img/stokku-desktop.jpg" alt="Dashboard StokKu" loading="lazy"></div>
         </a>
-        <div class="phone" aria-hidden="true"><img src="img/stokku-hp.jpg" alt="" loading="lazy"></div>
+        <div class="phone" aria-hidden="true" style="--sb:#feffff"><img src="img/stokku-hp.jpg" alt="" loading="lazy"></div>
         </div>
         <div>
           <div class="meta"><span class="tag live">Demo live</span>Inventory</div>
@@ -376,7 +377,7 @@ h1 span{display:block;color:var(--muted);font-weight:500;font-size:.48em;letter-
           <div class="bar"><span>istu2174.github.io/duitku</span></div>
           <div class="img"><img src="img/duitku-desktop.jpg" alt="Dashboard Duitku" loading="lazy" width="1600" height="1000"></div>
         </a>
-        <div class="phone" aria-hidden="true"><img src="img/duitku-hp.jpg" alt="" loading="lazy"></div>
+        <div class="phone" aria-hidden="true" style="--sb:#fef9f3"><img src="img/duitku-hp.jpg" alt="" loading="lazy"></div>
         </div>
         <div>
           <div class="meta"><span class="tag live">Demo live</span>Keuangan pribadi</div>
@@ -401,7 +402,7 @@ h1 span{display:block;color:var(--muted);font-weight:500;font-size:.48em;letter-
           <div class="bar"><span>sipanda · dispora kota palembang</span></div>
           <div class="img"><img src="img/sipanda-desktop.jpg" alt="Dashboard SIPANDA" loading="lazy"></div>
         </a>
-        <div class="phone" aria-hidden="true"><img src="img/sipanda-hp.jpg" alt="" loading="lazy"></div>
+        <div class="phone" aria-hidden="true" style="--sb:#f4f4f4"><img src="img/sipanda-hp.jpg" alt="" loading="lazy"></div>
         </div>
         <div>
           <div class="meta"><span class="tag src">Proyek instansi</span>Dispora Kota Palembang</div>
@@ -425,7 +426,7 @@ h1 span{display:block;color:var(--muted);font-weight:500;font-size:.48em;letter-
           <div class="bar"><span>istu2174.github.io/blok-blas</span></div>
           <div class="img"><img src="img/blokblas-desktop.jpg" alt="Permainan Blok Blas" loading="lazy" width="1600" height="1000"></div>
         </a>
-        <div class="phone" aria-hidden="true"><img src="img/blokblas-hp.jpg" alt="" loading="lazy"></div>
+        <div class="phone" aria-hidden="true" style="--sb:#a6ddfc"><img src="img/blokblas-hp.jpg" alt="" loading="lazy"></div>
         </div>
         <div>
           <div class="meta"><span class="tag live">Demo live</span>Game · PWA</div>
